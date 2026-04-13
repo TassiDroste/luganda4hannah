@@ -4,167 +4,124 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Luganda 1000 — Learn Core Vocabulary</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="vocab.js"></script>
 <style>
-:root {
-  --green: #1D9E75; --green-light: #e6f7f1; --green-dark: #0f6e52;
-  --amber: #f59e0b; --amber-light: #fef3c7;
-  --red: #ef4444; --red-light: #fee2e2;
-  --blue: #3b82f6; --blue-light: #eff6ff;
-  --bg: #faf9f6; --surface: #ffffff; --surface2: #f4f3ef;
-  --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.15);
-  --text: #1a1917; --text2: #6b6860; --text3: #a8a59e;
-  --radius: 14px; --radius-sm: 8px;
-  --shadow: 0 2px 12px rgba(0,0,0,0.07);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
-/* HEADER */
-.header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; }
-.logo { display: flex; align-items: center; gap: 12px; }
-.logo-flag { width: 30px; height: 20px; border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; }
-.flag-black { flex:1; background:#000; } .flag-yellow { flex:1; background:#FCDC04; } .flag-red { flex:1; background:#D90000; }
-.logo-name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
-.logo-name span { color: var(--green); }
-.progress-wrap { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--text2); }
-.progress-bar { width:130px; height:6px; background:var(--surface2); border-radius:3px; overflow:hidden; }
-.progress-fill { height:100%; background:var(--green); border-radius:3px; transition:width 0.5s; }
-
-/* LAYOUT */
-.layout { display: flex; min-height: calc(100vh - 61px); }
-
-/* SIDEBAR */
-.sidebar { width: 230px; background: var(--surface); border-right: 1px solid var(--border); padding: 1.2rem 0; flex-shrink: 0; overflow-y: auto; }
-.sidebar-label { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; padding: 0.5rem 1.2rem 0.3rem; }
-.cat-btn { display: flex; align-items: center; gap: 10px; width: 100%; padding: 0.6rem 1.2rem; border: none; background: none; cursor: pointer; font-size: 13.5px; color: var(--text2); text-align: left; transition: background 0.15s; font-family: 'DM Sans', sans-serif; }
-.cat-btn:hover { background: var(--surface2); }
-.cat-btn.active { background: var(--green-light); color: var(--green-dark); font-weight: 600; }
-.cat-icon { font-size: 15px; width: 20px; flex-shrink: 0; }
-.cat-count { margin-left: auto; font-size: 11px; color: var(--text3); }
-.cat-btn.active .cat-count { color: var(--green); }
-
-/* CONTENT */
-.content { flex: 1; padding: 2rem; overflow-y: auto; max-width: 1100px; }
-.content-hdr { margin-bottom: 1.5rem; }
-.content-title { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 600; margin-bottom: 4px; }
-.content-desc { font-size: 14px; color: var(--text2); }
-
-/* SEARCH */
-.search-input { width: 100%; padding: 0.65rem 1rem; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: var(--surface); font-size: 14px; color: var(--text); outline: none; font-family: 'DM Sans', sans-serif; margin-bottom: 1.2rem; }
-.search-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
-
-/* MODE BAR */
-.mode-bar { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.mode-btn { padding: 0.4rem 1rem; border: 1px solid var(--border2); border-radius: 20px; font-size: 13px; background: none; cursor: pointer; color: var(--text2); transition: all 0.15s; font-family: 'DM Sans', sans-serif; display:flex; align-items:center; gap:5px; }
-.mode-btn:hover { border-color: var(--green); color: var(--green); }
-.mode-btn.active { background: var(--green); border-color: var(--green); color: #fff; font-weight: 500; }
-
-/* WORD GRID */
-.word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; }
-.word-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; transition: border-color 0.2s, transform 0.15s, box-shadow 0.15s; cursor: default; }
-.word-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: var(--shadow); }
-.word-card.learned { border-color: var(--green); }
-.word-card.learned::after { content:''; position:absolute; top:10px; right:10px; width:8px; height:8px; border-radius:50%; background:var(--green); }
-.pictogram { font-size: 38px; margin-bottom: 0.7rem; line-height: 1; }
-.luganda-word { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
-.english-word { font-size: 12px; color: var(--text2); margin-bottom: 0.5rem; }
-.pronunciation { font-size: 10.5px; color: var(--text3); margin-bottom: 0.7rem; font-style: italic; }
-.card-actions { display:flex; gap:5px; }
-.audio-btn, .learn-btn { padding: 4px 10px; border-radius: 20px; font-size: 11.5px; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.15s; }
-.audio-btn { border: 1px solid var(--border2); background: none; color: var(--text2); }
-.audio-btn:hover { background: var(--surface2); }
-.learn-btn { border: 1px solid var(--green); background: none; color: var(--green); }
-.learn-btn.done, .learn-btn:hover { background: var(--green); color: #fff; }
-
-/* QUIZ MODE */
-.quiz-wrap { max-width: 540px; margin: 0 auto; }
-.quiz-progress-bar { background: var(--surface2); border-radius: 4px; height: 5px; margin-bottom: 1.5rem; overflow: hidden; }
-.quiz-progress-fill { height: 100%; background: var(--green); transition: width 0.3s; }
-.quiz-score-bar { display: flex; justify-content: space-between; font-size: 13px; color: var(--text2); margin-bottom: 0.75rem; }
-.quiz-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; }
-.quiz-pictogram { font-size: 68px; margin-bottom: 0.8rem; }
-.quiz-label { font-size: 13px; color: var(--text2); margin-bottom: 0.3rem; }
-.quiz-word { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600; margin-bottom: 0.3rem; }
-.quiz-pron { font-size: 12px; color: var(--text3); font-style: italic; margin-bottom: 1rem; }
-.quiz-audio-btn { padding: 6px 14px; border: 1px solid var(--border2); border-radius: 20px; background: none; font-size: 13px; cursor: pointer; color: var(--text2); font-family: 'DM Sans', sans-serif; }
-.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1.5rem; }
-.quiz-opt { padding: 0.8rem; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: none; font-size: 14px; cursor: pointer; color: var(--text); transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
-.quiz-opt:hover:not(:disabled) { background: var(--surface2); border-color: var(--green); }
-.quiz-opt.correct { background: #dcfce7; border-color: #16a34a; color: #15803d; }
-.quiz-opt.wrong { background: var(--red-light); border-color: var(--red); color: #b91c1c; }
-.quiz-next { margin-top: 1.2rem; padding: 0.65rem 1.8rem; background: var(--green); color: #fff; border: none; border-radius: 20px; font-size: 14px; cursor: pointer; display: none; font-family: 'DM Sans', sans-serif; font-weight: 500; }
-.quiz-complete { text-align: center; padding: 3rem 2rem; background: var(--surface); border-radius: var(--radius); }
-.quiz-complete .big-emoji { font-size: 64px; margin-bottom: 1rem; }
-.quiz-complete h2 { font-family:'Fraunces',serif; font-size:28px; margin-bottom:0.5rem; }
-.quiz-complete p { color: var(--text2); margin-bottom: 1.5rem; }
-.btn-green { padding: 0.65rem 1.8rem; background: var(--green); color: #fff; border: none; border-radius: 20px; font-size: 14px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; }
-
-/* MATCHING PAIRS */
-.pairs-wrap { max-width: 680px; margin: 0 auto; }
-.pairs-score { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; font-size:13px; color:var(--text2); }
-.pairs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.pairs-col { display: flex; flex-direction: column; gap: 8px; }
-.pairs-col-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; text-align: center; }
-.pair-card { padding: 0.75rem 1rem; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); cursor: pointer; font-size: 14px; text-align: center; transition: all 0.2s; user-select: none; min-height: 56px; display:flex; align-items:center; justify-content:center; gap:6px; }
-.pair-card:hover:not(.matched):not(.wrong-flash) { border-color: var(--green); background: var(--green-light); }
-.pair-card.selected { border-color: var(--amber); background: var(--amber-light); }
-.pair-card.matched { border-color: var(--green); background: var(--green-light); color: var(--green-dark); cursor: default; opacity: 0.7; }
-.pair-card.wrong-flash { border-color: var(--red); background: var(--red-light); animation: shake 0.4s; }
-@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
-
-/* FILL IN THE BLANK */
-.fill-wrap { max-width: 560px; margin: 0 auto; }
-.fill-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; margin-bottom: 1.2rem; }
-.fill-sentence { font-size: 18px; line-height: 1.7; margin-bottom: 1.5rem; text-align: center; }
-.fill-blank { display: inline-block; border-bottom: 2px solid var(--green); min-width: 100px; color: var(--green); font-weight: 600; font-family: 'Fraunces', serif; font-size: 20px; }
-.fill-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.fill-opt { padding: 0.8rem; border: 1px solid var(--border2); border-radius: var(--radius-sm); background: none; font-size: 14px; cursor: pointer; color: var(--text); transition: all 0.15s; font-family: 'DM Sans', sans-serif; }
-.fill-opt:hover:not(:disabled) { border-color: var(--green); background: var(--green-light); }
-.fill-opt.correct { background: #dcfce7; border-color: #16a34a; color: #15803d; }
-.fill-opt.wrong { background: var(--red-light); border-color: var(--red); color: #b91c1c; }
-.fill-hint { font-size: 12px; color: var(--text3); text-align: center; margin-bottom: 1rem; font-style: italic; }
-
-/* STORY MODE */
-.story-wrap { max-width: 640px; margin: 0 auto; }
-.story-picker { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
-.story-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; cursor: pointer; transition: all 0.2s; }
-.story-card:hover { border-color: var(--green); box-shadow: var(--shadow); transform: translateY(-2px); }
-.story-card .s-emoji { font-size: 36px; margin-bottom: 0.5rem; }
-.story-card .s-title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-.story-card .s-desc { font-size: 12px; color: var(--text2); }
-.story-reader { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
-.story-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; }
-.story-title { font-family:'Fraunces',serif; font-size:22px; font-weight:600; }
-.back-btn { padding: 5px 12px; border: 1px solid var(--border2); border-radius: 20px; background: none; font-size: 13px; cursor: pointer; color: var(--text2); font-family:'DM Sans',sans-serif; }
-.story-text { font-size: 16px; line-height: 2; margin-bottom: 1.5rem; }
-.story-word { background: var(--amber-light); border-bottom: 2px solid var(--amber); cursor: pointer; border-radius: 3px; padding: 1px 3px; transition: background 0.15s; position: relative; }
-.story-word:hover { background: #fde68a; }
-.story-word.revealed { background: var(--green-light); border-bottom-color: var(--green); }
-.word-tooltip { display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--text); color: #fff; font-size: 12px; padding: 5px 10px; border-radius: 6px; white-space: nowrap; z-index: 100; pointer-events: none; }
-.story-word:hover .word-tooltip, .story-word.revealed .word-tooltip { display: block; }
-.story-legend { background: var(--surface2); border-radius: var(--radius-sm); padding: 1rem; font-size: 13px; color: var(--text2); }
-.story-legend strong { color: var(--text); }
-.story-glossary { margin-top: 1.2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; }
-.glossary-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.6rem 0.8rem; font-size: 13px; }
-.glossary-item .g-lug { font-weight: 600; color: var(--green-dark); }
-.glossary-item .g-eng { color: var(--text2); }
-
-.empty { text-align:center; padding:3rem; color:var(--text3); font-size:15px; }
-
-@media(max-width:650px){
-  .sidebar{display:none;}
-  .word-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}
-  .pairs-grid{grid-template-columns:1fr;}
-  .quiz-options,.fill-options{grid-template-columns:1fr;}
-  .progress-bar{display:none;}
-  .content{padding:1rem;}
-}
+:root{--green:#1D9E75;--green-light:#e6f7f1;--green-dark:#0f6e52;--amber:#f59e0b;--amber-light:#fef3c7;--red:#ef4444;--red-light:#fee2e2;--blue:#3b82f6;--bg:#faf9f6;--surface:#ffffff;--surface2:#f4f3ef;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);--text:#1a1917;--text2:#6b6860;--text3:#a8a59e;--radius:14px;--radius-sm:8px;--shadow:0 2px 12px rgba(0,0,0,0.07);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;}
+.logo{display:flex;align-items:center;gap:12px;}
+.logo-flag{width:30px;height:20px;border-radius:4px;overflow:hidden;display:flex;flex-direction:column;}
+.flag-black{flex:1;background:#000;}.flag-yellow{flex:1;background:#FCDC04;}.flag-red{flex:1;background:#D90000;}
+.logo-name{font-family:'Fraunces',serif;font-size:22px;font-weight:600;letter-spacing:-.5px;}
+.logo-name span{color:var(--green);}
+.progress-wrap{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2);}
+.progress-bar{width:130px;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .5s;}
+.layout{display:flex;min-height:calc(100vh - 61px);}
+.sidebar{width:230px;background:var(--surface);border-right:1px solid var(--border);padding:1.2rem 0;flex-shrink:0;overflow-y:auto;}
+.sidebar-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;padding:.5rem 1.2rem .3rem;}
+.cat-btn{display:flex;align-items:center;gap:10px;width:100%;padding:.6rem 1.2rem;border:none;background:none;cursor:pointer;font-size:13.5px;color:var(--text2);text-align:left;transition:background .15s;font-family:'DM Sans',sans-serif;}
+.cat-btn:hover{background:var(--surface2);}
+.cat-btn.active{background:var(--green-light);color:var(--green-dark);font-weight:600;}
+.cat-icon{font-size:15px;width:20px;flex-shrink:0;}
+.cat-count{margin-left:auto;font-size:11px;color:var(--text3);}
+.cat-btn.active .cat-count{color:var(--green);}
+.content{flex:1;padding:2rem;overflow-y:auto;max-width:1100px;}
+.content-hdr{margin-bottom:1.5rem;}
+.content-title{font-family:'Fraunces',serif;font-size:26px;font-weight:600;margin-bottom:4px;}
+.content-desc{font-size:14px;color:var(--text2);}
+.search-input{width:100%;padding:.65rem 1rem;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--surface);font-size:14px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif;margin-bottom:1.2rem;}
+.search-input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,.1);}
+.mode-bar{display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap;}
+.mode-btn{padding:.4rem 1rem;border:1px solid var(--border2);border-radius:20px;font-size:13px;background:none;cursor:pointer;color:var(--text2);transition:all .15s;font-family:'DM Sans',sans-serif;}
+.mode-btn:hover{border-color:var(--green);color:var(--green);}
+.mode-btn.active{background:var(--green);border-color:var(--green);color:#fff;font-weight:500;}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px;}
+.word-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;transition:border-color .2s,transform .15s,box-shadow .15s;}
+.word-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:var(--shadow);}
+.word-card.learned{border-color:var(--green);}
+.word-card.learned::after{content:'';position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--green);}
+.pictogram{font-size:38px;margin-bottom:.7rem;line-height:1;}
+.luganda-word{font-size:16px;font-weight:600;margin-bottom:2px;}
+.english-word{font-size:12px;color:var(--text2);margin-bottom:.5rem;}
+.pronunciation{font-size:10.5px;color:var(--text3);margin-bottom:.7rem;font-style:italic;}
+.card-actions{display:flex;gap:5px;}
+.audio-btn,.learn-btn{padding:4px 10px;border-radius:20px;font-size:11.5px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .15s;}
+.audio-btn{border:1px solid var(--border2);background:none;color:var(--text2);}
+.audio-btn:hover{background:var(--surface2);}
+.learn-btn{border:1px solid var(--green);background:none;color:var(--green);}
+.learn-btn.done,.learn-btn:hover{background:var(--green);color:#fff;}
+.quiz-wrap{max-width:540px;margin:0 auto;}
+.quiz-progress-bar{background:var(--surface2);border-radius:4px;height:5px;margin-bottom:1.5rem;overflow:hidden;}
+.quiz-progress-fill{height:100%;background:var(--green);transition:width .3s;}
+.quiz-score-bar{display:flex;justify-content:space-between;font-size:13px;color:var(--text2);margin-bottom:.75rem;}
+.quiz-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;text-align:center;}
+.quiz-pictogram{font-size:68px;margin-bottom:.8rem;}
+.quiz-label{font-size:13px;color:var(--text2);margin-bottom:.3rem;}
+.quiz-word{font-family:'Fraunces',serif;font-size:30px;font-weight:600;margin-bottom:.3rem;}
+.quiz-pron{font-size:12px;color:var(--text3);font-style:italic;margin-bottom:1rem;}
+.quiz-audio-btn{padding:6px 14px;border:1px solid var(--border2);border-radius:20px;background:none;font-size:13px;cursor:pointer;color:var(--text2);font-family:'DM Sans',sans-serif;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1.5rem;}
+.quiz-opt{padding:.8rem;border:1px solid var(--border2);border-radius:var(--radius-sm);background:none;font-size:14px;cursor:pointer;color:var(--text);transition:all .15s;font-family:'DM Sans',sans-serif;}
+.quiz-opt:hover:not(:disabled){background:var(--surface2);border-color:var(--green);}
+.quiz-opt.correct{background:#dcfce7;border-color:#16a34a;color:#15803d;}
+.quiz-opt.wrong{background:var(--red-light);border-color:var(--red);color:#b91c1c;}
+.quiz-next{margin-top:1.2rem;padding:.65rem 1.8rem;background:var(--green);color:#fff;border:none;border-radius:20px;font-size:14px;cursor:pointer;display:none;font-family:'DM Sans',sans-serif;font-weight:500;}
+.quiz-complete{text-align:center;padding:3rem 2rem;background:var(--surface);border-radius:var(--radius);}
+.quiz-complete .big-emoji{font-size:64px;margin-bottom:1rem;}
+.quiz-complete h2{font-family:'Fraunces',serif;font-size:28px;margin-bottom:.5rem;}
+.quiz-complete p{color:var(--text2);margin-bottom:1.5rem;}
+.btn-green{padding:.65rem 1.8rem;background:var(--green);color:#fff;border:none;border-radius:20px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;}
+.pairs-wrap{max-width:680px;margin:0 auto;}
+.pairs-score{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;font-size:13px;color:var(--text2);}
+.pairs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.pairs-col-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;text-align:center;}
+.pair-card{padding:.75rem 1rem;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);cursor:pointer;font-size:14px;text-align:center;transition:all .2s;user-select:none;min-height:56px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.pair-card:hover:not(.matched):not(.wrong-flash){border-color:var(--green);background:var(--green-light);}
+.pair-card.selected{border-color:var(--amber);background:var(--amber-light);}
+.pair-card.matched{border-color:var(--green);background:var(--green-light);color:var(--green-dark);cursor:default;opacity:.7;}
+.pair-card.wrong-flash{border-color:var(--red);background:var(--red-light);animation:shake .4s;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.fill-wrap{max-width:560px;margin:0 auto;}
+.fill-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;margin-bottom:1.2rem;}
+.fill-sentence{font-size:18px;line-height:1.7;margin-bottom:1.5rem;text-align:center;}
+.fill-blank{display:inline-block;border-bottom:2px solid var(--green);min-width:100px;color:var(--green);font-weight:600;font-family:'Fraunces',serif;font-size:20px;}
+.fill-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.fill-opt{padding:.8rem;border:1px solid var(--border2);border-radius:var(--radius-sm);background:none;font-size:14px;cursor:pointer;color:var(--text);transition:all .15s;font-family:'DM Sans',sans-serif;}
+.fill-opt:hover:not(:disabled){border-color:var(--green);background:var(--green-light);}
+.fill-opt.correct{background:#dcfce7;border-color:#16a34a;color:#15803d;}
+.fill-opt.wrong{background:var(--red-light);border-color:var(--red);color:#b91c1c;}
+.fill-hint{font-size:12px;color:var(--text3);text-align:center;margin-bottom:1rem;font-style:italic;}
+.story-wrap{max-width:640px;margin:0 auto;}
+.story-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:1.5rem;}
+.story-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;cursor:pointer;transition:all .2s;}
+.story-card:hover{border-color:var(--green);box-shadow:var(--shadow);transform:translateY(-2px);}
+.story-card .s-emoji{font-size:36px;margin-bottom:.5rem;}
+.story-card .s-title{font-weight:600;font-size:14px;margin-bottom:4px;}
+.story-card .s-desc{font-size:12px;color:var(--text2);}
+.story-reader{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;}
+.story-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;}
+.story-title{font-family:'Fraunces',serif;font-size:22px;font-weight:600;}
+.back-btn{padding:5px 12px;border:1px solid var(--border2);border-radius:20px;background:none;font-size:13px;cursor:pointer;color:var(--text2);font-family:'DM Sans',sans-serif;}
+.story-text{font-size:16px;line-height:2;margin-bottom:1.5rem;}
+.story-word{background:var(--amber-light);border-bottom:2px solid var(--amber);cursor:pointer;border-radius:3px;padding:1px 3px;transition:background .15s;position:relative;}
+.story-word:hover{background:#fde68a;}
+.story-word.revealed{background:var(--green-light);border-bottom-color:var(--green);}
+.word-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--text);color:#fff;font-size:12px;padding:5px 10px;border-radius:6px;white-space:nowrap;z-index:100;pointer-events:none;}
+.story-word:hover .word-tooltip,.story-word.revealed .word-tooltip{display:block;}
+.story-legend{background:var(--surface2);border-radius:var(--radius-sm);padding:1rem;font-size:13px;color:var(--text2);}
+.story-legend strong{color:var(--text);}
+.story-glossary{margin-top:1.2rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;}
+.glossary-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.6rem .8rem;font-size:13px;}
+.glossary-item .g-lug{font-weight:600;color:var(--green-dark);}
+.glossary-item .g-eng{color:var(--text2);}
+.empty{text-align:center;padding:3rem;color:var(--text3);font-size:15px;}
+@media(max-width:650px){.sidebar{display:none;}.word-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}.pairs-grid{grid-template-columns:1fr;}.quiz-options,.fill-options{grid-template-columns:1fr;}.progress-bar{display:none;}.content{padding:1rem;}}
 </style>
 </head>
 <body>
-
 <header class="header">
   <div class="logo">
     <div class="logo-flag"><div class="flag-black"></div><div class="flag-yellow"></div><div class="flag-red"></div></div>
@@ -175,12 +132,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
 </header>
-
 <div class="layout">
   <nav class="sidebar" id="sidebar"></nav>
   <div class="content" id="content"></div>
 </div>
-
 <script>
 var CATS=[
   {id:'greetings',label:'Greetings & Phrases',icon:'👋'},
@@ -197,499 +152,136 @@ var CATS=[
   {id:'questions',label:'Questions & Logic',icon:'❓'}
 ];
 
-var VOCAB={
-greetings:[
-  {l:'Oli otya',e:'How are you?',p:'oh-lee oh-tyah',ic:'🙋'},
-  {l:'Bulungi',e:'Fine / Good',p:'boo-loon-gee',ic:'😊'},
-  {l:'Webale',e:'Thank you',p:'weh-bah-leh',ic:'🙏'},
-  {l:'Webale nyo',e:'Thank you very much',p:'weh-bah-leh nyoh',ic:'🙏'},
-  {l:'Ssebo',e:'Sir / Mr',p:'seh-bo',ic:'👨'},
-  {l:'Nnyabo',e:'Madam / Mrs',p:'nyah-bo',ic:'👩'},
-  {l:'Nedda',e:'No',p:'neh-dah',ic:'🚫'},
-  {l:'Yee',e:'Yes',p:'yeh',ic:'✅'},
-  {l:'Nkusaba',e:'Please',p:'n-koo-sah-bah',ic:'🤲'},
-  {l:'Nsonyiwa',e:'Sorry / Excuse me',p:'n-son-yee-wah',ic:'😔'},
-  {l:'Bambi',e:'Please / Poor thing',p:'bam-bee',ic:'💛'},
-  {l:'Wasuze otya',e:'Good morning',p:'wah-soo-zeh oh-tyah',ic:'🌅'},
-  {l:'Osibye otya',e:'Good afternoon',p:'oh-see-beh oh-tyah',ic:'☀️'},
-  {l:'Sula bulungi',e:'Good night',p:'soo-lah boo-loon-gee',ic:'🌙'},
-  {l:'Tulabye',e:'Goodbye',p:'too-lah-byeh',ic:'👋'},
-  {l:'Kale',e:'Okay / Alright',p:'kah-leh',ic:'👍'},
-  {l:'Nkwagala',e:'I love you',p:'n-kwah-gah-lah',ic:'❤️'},
-  {l:'Simanyi',e:'I don\'t know',p:'see-mahn-yee',ic:'🤷'},
-  {l:'Mazima',e:'Truth / Truly',p:'mah-zee-mah',ic:'💯'},
-  {l:'Amaama',e:'Delicious / Great',p:'ah-mah-mah',ic:'😋'},
-  {l:'Kati',e:'Now / So',p:'kah-tee',ic:'⏱️'},
-  {l:'Gyebale',e:'Well done',p:'jeh-bah-leh',ic:'👏'},
-  {l:'Mpulira',e:'I understand',p:'m-poo-lee-rah',ic:'💡'},
-  {l:'Erinnya lyange nze',e:'My name is...',p:'eh-reen-yah lyahn-geh n-zeh',ic:'🪪'},
-  {l:'Ova wa',e:'Where are you from?',p:'oh-vah wah',ic:'🌍'}
-],
-people:[
-  {l:'Maama',e:'Mother',p:'mah-mah',ic:'👩'},
-  {l:'Taata',e:'Father',p:'tah-tah',ic:'👨'},
-  {l:'Omwana',e:'Child',p:'ohm-wah-nah',ic:'👶'},
-  {l:'Abaana',e:'Children',p:'ah-bah-nah',ic:'👧'},
-  {l:'Mukyala',e:'Wife',p:'moo-chah-lah',ic:'👰'},
-  {l:'Omusajja',e:'Man / Husband',p:'oh-moo-sah-jah',ic:'🧔'},
-  {l:'Muganda',e:'Sibling / Relative',p:'moo-gahn-dah',ic:'🤝'},
-  {l:'Jjajja',e:'Grandparent',p:'jah-jah',ic:'👴'},
-  {l:'Kojja',e:'Uncle (maternal)',p:'koh-jah',ic:'👦'},
-  {l:'Ssenga',e:'Aunt (paternal)',p:'seh-ngah',ic:'👧'},
-  {l:'Omuntu',e:'Person',p:'oh-moon-too',ic:'🧑'},
-  {l:'Abantu',e:'People',p:'ah-bahn-too',ic:'👥'},
-  {l:'Munnange',e:'My friend',p:'moon-nahn-geh',ic:'🤗'},
-  {l:'Kabaka',e:'King',p:'kah-bah-kah',ic:'👑'},
-  {l:'Musomesa',e:'Teacher',p:'moo-soh-meh-sah',ic:'👩‍🏫'},
-  {l:'Omusawo',e:'Doctor',p:'oh-moo-sah-woh',ic:'👨‍⚕️'},
-  {l:'Omukazi',e:'Woman',p:'oh-moo-kah-zee',ic:'👩'},
-  {l:'Omuwala',e:'Girl',p:'oh-moo-wah-lah',ic:'👧'},
-  {l:'Omulenzi',e:'Boy',p:'oh-moo-lehn-zee',ic:'👦'},
-  {l:'Omulimi',e:'Farmer',p:'oh-moo-lee-mee',ic:'👨‍🌾'},
-  {l:'Mugole',e:'Bride / Groom',p:'moo-goh-leh',ic:'💒'},
-  {l:'Omukulu',e:'Elder',p:'oh-moo-koo-loo',ic:'🧓'},
-  {l:'Mwana wa mwana',e:'Grandchild',p:'mwah-nah wah mwah-nah',ic:'🧒'},
-  {l:'Omukwano',e:'Friend',p:'oh-moo-kwah-noh',ic:'🤝'},
-  {l:'Omupagisi',e:'Nurse',p:'oh-moo-pah-gee-see',ic:'👩‍⚕️'}
-],
-body:[
-  {l:'Omutwe',e:'Head',p:'oh-moo-tweh',ic:'🗣️'},
-  {l:'Amaaso',e:'Eyes',p:'ah-mah-soh',ic:'👁️'},
-  {l:'Okutu',e:'Ear',p:'oh-koo-too',ic:'👂'},
-  {l:'Ennyindo',e:'Nose',p:'eh-nyeen-doh',ic:'👃'},
-  {l:'Akamwa',e:'Mouth',p:'ah-kahm-wah',ic:'👄'},
-  {l:'Amenyo',e:'Teeth',p:'ah-meh-nyoh',ic:'🦷'},
-  {l:'Omukono',e:'Hand / Arm',p:'oh-moo-koh-noh',ic:'🖐️'},
-  {l:'Okugulu',e:'Leg / Foot',p:'oh-koo-goo-loo',ic:'🦵'},
-  {l:'Ekitutu',e:'Stomach',p:'eh-kee-too-too',ic:'🫃'},
-  {l:'Omutima',e:'Heart',p:'oh-moo-tee-mah',ic:'❤️'},
-  {l:'Enviiri',e:'Hair',p:'en-vee-ree',ic:'💇'},
-  {l:'Obulamu',e:'Life / Health',p:'oh-boo-lah-moo',ic:'🌱'},
-  {l:'Obulwadde',e:'Illness / Sickness',p:'oh-boo-lwah-deh',ic:'🤒'},
-  {l:'Amagulu',e:'Legs',p:'ah-mah-goo-loo',ic:'🦶'},
-  {l:'Omugongo',e:'Back',p:'oh-moo-gohn-goh',ic:'🫁'},
-  {l:'Akabega',e:'Shoulder',p:'ah-kah-beh-gah',ic:'💪'},
-  {l:'Ensaayi',e:'Blood',p:'en-sah-yee',ic:'🩸'},
-  {l:'Olunyi',e:'Pain',p:'oh-loo-nyee',ic:'😣'},
-  {l:'Akaleero',e:'Tongue',p:'ah-kah-leh-roh',ic:'👅'},
-  {l:'Engalo',e:'Fingers',p:'en-gah-loh',ic:'🖐️'},
-  {l:'Ekyena',e:'Knee',p:'eh-cheh-nah',ic:'🦵'},
-  {l:'Amatwi',e:'Ears',p:'ah-mah-twee',ic:'👂'},
-  {l:'Obutonde',e:'Strength',p:'oh-boo-tohn-deh',ic:'💪'},
-  {l:'Omumiro',e:'Throat',p:'oh-moo-mee-roh',ic:'🗣️'},
-  {l:'Omusana',e:'Skin',p:'oh-moo-sah-nah',ic:'🧴'}
-],
-food:[
-  {l:'Emmere',e:'Food',p:'eh-meh-reh',ic:'🍽️'},
-  {l:'Amazzi',e:'Water',p:'ah-mah-zee',ic:'💧'},
-  {l:'Enva',e:'Vegetables',p:'en-vah',ic:'🥦'},
-  {l:'Ennyama',e:'Meat',p:'eh-nyah-mah',ic:'🥩'},
-  {l:'Ebbere',e:'Milk',p:'eh-beh-reh',ic:'🥛'},
-  {l:'Omugati',e:'Bread',p:'oh-moo-gah-tee',ic:'🍞'},
-  {l:'Ebitooke',e:'Matoke / Plantain',p:'eh-bee-toh-keh',ic:'🍌'},
-  {l:'Obutunda',e:'Tomatoes',p:'oh-boo-toon-dah',ic:'🍅'},
-  {l:'Enjuba',e:'Salt',p:'en-joo-bah',ic:'🧂'},
-  {l:'Mafuta',e:'Oil',p:'mah-foo-tah',ic:'🫙'},
-  {l:'Ekyenvu',e:'Groundnut / Peanut',p:'eh-cheh-nvoo',ic:'🥜'},
-  {l:'Obwali',e:'Millet porridge',p:'oh-bwah-lee',ic:'🥣'},
-  {l:'Ssukali',e:'Sugar',p:'soo-kah-lee',ic:'🍬'},
-  {l:'Kaawa',e:'Coffee',p:'kah-wah',ic:'☕'},
-  {l:'Caayi',e:'Tea',p:'chah-yee',ic:'🫖'},
-  {l:'Omucungwa',e:'Orange',p:'oh-moo-coon-gwah',ic:'🍊'},
-  {l:'Emiyembe',e:'Mangoes',p:'eh-mee-yehm-beh',ic:'🥭'},
-  {l:'Amasanyu',e:'Eggs',p:'ah-mah-sahn-yoo',ic:'🥚'},
-  {l:'Enkoko',e:'Chicken',p:'en-koh-koh',ic:'🐔'},
-  {l:'Enjala',e:'Hunger',p:'en-jah-lah',ic:'😫'},
-  {l:'Emmande',e:'Cassava',p:'eh-mahn-deh',ic:'🌿'},
-  {l:'Ekijanjaalo',e:'Beans',p:'eh-kee-jahn-jah-loh',ic:'🫘'},
-  {l:'Kasooli',e:'Maize / Corn',p:'kah-soh-lee',ic:'🌽'},
-  {l:'Amata',e:'Cow milk',p:'ah-mah-tah',ic:'🥛'},
-  {l:'Posho',e:'Maize porridge',p:'poh-shoh',ic:'🥣'}
-],
-home:[
-  {l:'Enju',e:'House / Home',p:'en-joo',ic:'🏠'},
-  {l:'Oluggya',e:'Compound / Yard',p:'oh-loo-gyah',ic:'🏡'},
-  {l:'Ekisenge',e:'Room',p:'eh-kee-sehn-geh',ic:'🚪'},
-  {l:'Oluggi',e:'Door',p:'oh-loo-gee',ic:'🚪'},
-  {l:'Eddiiro',e:'Sitting room',p:'eh-dee-roh',ic:'🛋️'},
-  {l:'Bbeddi',e:'Bed',p:'beh-dee',ic:'🛏️'},
-  {l:'Entebe',e:'Chair',p:'en-teh-beh',ic:'🪑'},
-  {l:'Emmeeza',e:'Table',p:'eh-meh-zah',ic:'🪞'},
-  {l:'Ekitabo',e:'Book',p:'eh-kee-tah-boh',ic:'📖'},
-  {l:'Simu',e:'Phone',p:'see-moo',ic:'📱'},
-  {l:'Engoye',e:'Clothes',p:'en-goh-yeh',ic:'👕'},
-  {l:'Engatto',e:'Shoes',p:'en-gah-toh',ic:'👟'},
-  {l:'Ensawo',e:'Bag',p:'en-sah-woh',ic:'👜'},
-  {l:'Entobo',e:'Knife',p:'en-toh-boh',ic:'🔪'},
-  {l:'Nnambooze',e:'Key',p:'nah-m-boh-zeh',ic:'🔑'},
-  {l:'Omuliro',e:'Fire',p:'oh-moo-lee-roh',ic:'🔥'},
-  {l:'Ettaala',e:'Lamp / Light',p:'eh-tah-lah',ic:'💡'},
-  {l:'Endeku',e:'Broom',p:'en-deh-koo',ic:'🧹'},
-  {l:'Ekyuma',e:'Metal / Tool',p:'eh-choo-mah',ic:'🔧'},
-  {l:'Olupapula',e:'Paper / Document',p:'oh-loo-pah-poo-lah',ic:'📄'},
-  {l:'Ensero',e:'Basket',p:'en-seh-roh',ic:'🧺'},
-  {l:'Ekyoto',e:'Fireplace / Kitchen',p:'eh-choh-toh',ic:'🍳'},
-  {l:'Olugoye',e:'Cloth / Fabric',p:'oh-loo-goh-yeh',ic:'🧣'},
-  {l:'Omupiira',e:'Ball',p:'oh-moo-pee-rah',ic:'⚽'},
-  {l:'Amaanyi',e:'Electricity / Power',p:'ah-mah-nyee',ic:'⚡'}
-],
-nature:[
-  {l:'Ennimiro',e:'Garden / Farm',p:'eh-nee-mee-roh',ic:'🌾'},
-  {l:'Omuti',e:'Tree',p:'oh-moo-tee',ic:'🌳'},
-  {l:'Ekibira',e:'Forest',p:'eh-kee-bee-rah',ic:'🌲'},
-  {l:'Enjovu',e:'Elephant',p:'en-joh-voo',ic:'🐘'},
-  {l:'Empologoma',e:'Lion',p:'ehm-poh-loh-goh-mah',ic:'🦁'},
-  {l:'Enkima',e:'Monkey',p:'en-kee-mah',ic:'🐒'},
-  {l:'Embwa',e:'Dog',p:'ehm-bwah',ic:'🐕'},
-  {l:'Ente',e:'Cow',p:'en-teh',ic:'🐄'},
-  {l:'Emmeme',e:'Cat',p:'eh-meh-meh',ic:'🐈'},
-  {l:'Enyonyi',e:'Bird',p:'eh-nyoh-nyee',ic:'🐦'},
-  {l:'Ennyanja',e:'Lake / Ocean',p:'eh-nyahn-jah',ic:'🌊'},
-  {l:'Embubi',e:'Goat',p:'ehm-boo-bee',ic:'🐐'},
-  {l:'Endiga',e:'Sheep',p:'en-dee-gah',ic:'🐑'},
-  {l:'Enkuba',e:'Rain',p:'en-koo-bah',ic:'🌧️'},
-  {l:'Empewo',e:'Wind / Air',p:'ehm-peh-woh',ic:'💨'},
-  {l:'Enjuba',e:'Sun',p:'en-joo-bah',ic:'☀️'},
-  {l:'Omwezi',e:'Moon / Month',p:'ohm-weh-zee',ic:'🌙'},
-  {l:'Enswera',e:'Bee',p:'en-sweh-rah',ic:'🐝'},
-  {l:'Enkwanzi',e:'Fish',p:'en-kwahn-zee',ic:'🐟'},
-  {l:'Omugga',e:'River',p:'oh-moo-gah',ic:'🏞️'},
-  {l:'Olusozi',e:'Mountain / Hill',p:'oh-loo-soh-zee',ic:'⛰️'},
-  {l:'Ekibulanku',e:'Cloud',p:'eh-kee-boo-lahn-koo',ic:'☁️'},
-  {l:'Engonzi',e:'Rabbit',p:'en-gohn-zee',ic:'🐇'},
-  {l:'Nkejje',e:'Tilapia fish',p:'n-keh-jeh',ic:'🐠'},
-  {l:'Enswa',e:'Flying ants',p:'en-swah',ic:'🐜'}
-],
-numbers:[
-  {l:'Emu',e:'One',p:'eh-moo',ic:'1️⃣'},
-  {l:'Bbiri',e:'Two',p:'bee-ree',ic:'2️⃣'},
-  {l:'Ssatu',e:'Three',p:'sah-too',ic:'3️⃣'},
-  {l:'Nnya',e:'Four',p:'nyah',ic:'4️⃣'},
-  {l:'Ttaano',e:'Five',p:'tah-noh',ic:'5️⃣'},
-  {l:'Mukaaga',e:'Six',p:'moo-kah-gah',ic:'6️⃣'},
-  {l:'Musanvu',e:'Seven',p:'moo-sahn-voo',ic:'7️⃣'},
-  {l:'Munaana',e:'Eight',p:'moo-nah-nah',ic:'8️⃣'},
-  {l:'Mwenda',e:'Nine',p:'mwehn-dah',ic:'9️⃣'},
-  {l:'Kkumi',e:'Ten',p:'koo-mee',ic:'🔟'},
-  {l:'Kikumi',e:'One hundred',p:'kee-koo-mee',ic:'💯'},
-  {l:'Lukumi',e:'One thousand',p:'loo-koo-mee',ic:'🔢'},
-  {l:'Sawa',e:'Hour / Time',p:'sah-wah',ic:'⏰'},
-  {l:'Olunaku',e:'Day',p:'oh-loo-nah-koo',ic:'📅'},
-  {l:'Wiiki',e:'Week',p:'wee-kee',ic:'📆'},
-  {l:'Omwezi',e:'Month',p:'ohm-weh-zee',ic:'📅'},
-  {l:'Omwaka',e:'Year',p:'ohm-wah-kah',ic:'🎆'},
-  {l:'Leero',e:'Today',p:'leh-roh',ic:'📆'},
-  {l:'Enkya',e:'Tomorrow',p:'en-chah',ic:'➡️'},
-  {l:'Ggulo',e:'Yesterday',p:'goo-loh',ic:'⬅️'},
-  {l:'Ekiro',e:'Night',p:'eh-kee-roh',ic:'🌙'},
-  {l:'Entuntu',e:'Morning',p:'en-toon-too',ic:'🌅'},
-  {l:'Sabbiiti',e:'Sunday',p:'sah-bee-tee',ic:'📅'},
-  {l:'Bbalaza',e:'Monday',p:'bah-lah-zah',ic:'📅'},
-  {l:'Lwakubiri',e:'Tuesday',p:'lwah-koo-bee-ree',ic:'📅'}
-],
-verbs:[
-  {l:'Okugenda',e:'To go',p:'oh-koo-gehn-dah',ic:'🚶'},
-  {l:'Okujja',e:'To come',p:'oh-koo-jah',ic:'🏃'},
-  {l:'Okutuuka',e:'To arrive',p:'oh-koo-too-kah',ic:'🏁'},
-  {l:'Okulya',e:'To eat',p:'oh-koo-lyah',ic:'🍽️'},
-  {l:'Okunywa',e:'To drink',p:'oh-koon-ywah',ic:'🥤'},
-  {l:'Okuloga',e:'To sleep',p:'oh-koo-loh-gah',ic:'😴'},
-  {l:'Okudduka',e:'To run',p:'oh-koo-doo-kah',ic:'🏃'},
-  {l:'Okusoma',e:'To read / study',p:'oh-koo-soh-mah',ic:'📖'},
-  {l:'Okugula',e:'To buy',p:'oh-koo-goo-lah',ic:'🛒'},
-  {l:'Okuwa',e:'To give',p:'oh-koo-wah',ic:'🎁'},
-  {l:'Okukola',e:'To work / do',p:'oh-koo-koh-lah',ic:'⚒️'},
-  {l:'Okwogera',e:'To speak',p:'oh-kwoh-geh-rah',ic:'🗣️'},
-  {l:'Okulaba',e:'To see',p:'oh-koo-lah-bah',ic:'👁️'},
-  {l:'Okuwulira',e:'To hear / feel',p:'oh-koo-woo-lee-rah',ic:'👂'},
-  {l:'Okutambula',e:'To walk / travel',p:'oh-koo-tahm-boo-lah',ic:'🚶'},
-  {l:'Okwagala',e:'To love / want',p:'oh-kwah-gah-lah',ic:'❤️'},
-  {l:'Okufumba',e:'To cook',p:'oh-koo-foom-bah',ic:'🍳'},
-  {l:'Okunaaba',e:'To bathe / wash',p:'oh-koo-nah-bah',ic:'🚿'},
-  {l:'Okuzina',e:'To dance',p:'oh-koo-zee-nah',ic:'💃'},
-  {l:'Okuyimba',e:'To sing',p:'oh-koo-yeem-bah',ic:'🎵'},
-  {l:'Okuseka',e:'To laugh',p:'oh-koo-seh-kah',ic:'😂'},
-  {l:'Okutandika',e:'To begin / start',p:'oh-koo-tahn-dee-kah',ic:'▶️'},
-  {l:'Okumaliriza',e:'To finish',p:'oh-koo-mah-lee-ree-zah',ic:'✅'},
-  {l:'Okuyamba',e:'To help',p:'oh-koo-yahm-bah',ic:'🤝'},
-  {l:'Okulowooza',e:'To think',p:'oh-koo-loh-woh-zah',ic:'🤔'},
-  {l:'Okujukira',e:'To remember',p:'oh-koo-joo-kee-rah',ic:'🧠'},
-  {l:'Okutya',e:'To fear',p:'oh-koo-tyah',ic:'😨'},
-  {l:'Okusigala',e:'To remain / stay',p:'oh-koo-see-gah-lah',ic:'🏠'},
-  {l:'Okufuluma',e:'To exit / go out',p:'oh-koo-foo-loo-mah',ic:'🚪'},
-  {l:'Okuyingira',e:'To enter',p:'oh-koo-yeen-gee-rah',ic:'🚪'},
-  {l:'Okusanga',e:'To find / meet',p:'oh-koo-sahn-gah',ic:'🔍'},
-  {l:'Okutuula',e:'To sit',p:'oh-koo-too-lah',ic:'🪑'},
-  {l:'Okwimirira',e:'To stand',p:'oh-kwee-mee-ree-rah',ic:'🧍'},
-  {l:'Okutema',e:'To cut / chop',p:'oh-koo-teh-mah',ic:'🪓'},
-  {l:'Okulima',e:'To cultivate / farm',p:'oh-koo-lee-mah',ic:'🌾'},
-  {l:'Okusomesa',e:'To teach',p:'oh-koo-soh-meh-sah',ic:'👩‍🏫'},
-  {l:'Okukkiriza',e:'To agree / believe',p:'oh-koo-kee-ree-zah',ic:'✅'},
-  {l:'Okusasula',e:'To pay',p:'oh-koo-sah-soo-lah',ic:'💸'},
-  {l:'Okutunda',e:'To sell',p:'oh-koo-toon-dah',ic:'🏪'},
-  {l:'Okuzimba',e:'To build',p:'oh-koo-zeem-bah',ic:'🏗️'},
-  {l:'Okugwa',e:'To fall',p:'oh-koo-gwah',ic:'⬇️'},
-  {l:'Okusaba',e:'To pray / beg',p:'oh-koo-sah-bah',ic:'🙏'},
-  {l:'Okubuuza',e:'To ask',p:'oh-koo-boo-zah',ic:'❓'},
-  {l:'Okubuuka',e:'To fly / jump up',p:'oh-koo-boo-kah',ic:'🦅'},
-  {l:'Okusitula',e:'To lift / carry',p:'oh-koo-see-too-lah',ic:'🏋️'},
-  {l:'Okukuuma',e:'To protect',p:'oh-koo-koo-mah',ic:'🛡️'}
-],
-adjectives:[
-  {l:'Bulungi',e:'Good / Beautiful',p:'boo-loon-gee',ic:'✨'},
-  {l:'Bubi',e:'Bad',p:'boo-bee',ic:'👎'},
-  {l:'Kinene',e:'Big / Large',p:'kee-neh-neh',ic:'🐘'},
-  {l:'Katono',e:'Small',p:'kah-toh-noh',ic:'🐜'},
-  {l:'Mpola',e:'Slowly / Gently',p:'m-poh-lah',ic:'🐢'},
-  {l:'Mangu',e:'Quickly / Fast',p:'mahn-goo',ic:'⚡'},
-  {l:'Mazima',e:'True / Real',p:'mah-zee-mah',ic:'✅'},
-  {l:'Kabisi',e:'Very / Extremely',p:'kah-bee-see',ic:'💯'},
-  {l:'Eddugavu',e:'Black / Dark',p:'eh-doo-gah-voo',ic:'⬛'},
-  {l:'Myufu',e:'White',p:'myoo-foo',ic:'⬜'},
-  {l:'Kiggya',e:'New',p:'kee-gyah',ic:'🆕'},
-  {l:'Kadde',e:'Old',p:'kah-deh',ic:'📜'},
-  {l:'Mugumu',e:'Hard / Tough',p:'moo-goo-moo',ic:'💎'},
-  {l:'Woomi',e:'Soft',p:'woh-mee',ic:'🧸'},
-  {l:'Mwerevu',e:'Clever / Smart',p:'mweh-reh-voo',ic:'🧠'},
-  {l:'Muggagga',e:'Rich / Wealthy',p:'moo-gah-gah',ic:'💰'},
-  {l:'Mwavu',e:'Poor',p:'mwah-voo',ic:'😔'},
-  {l:'Mugabi',e:'Generous',p:'moo-gah-bee',ic:'🎁'},
-  {l:'Nyooma',e:'Sweet',p:'nyoh-mah',ic:'🍬'},
-  {l:'Kayivu',e:'Lazy',p:'kah-yee-voo',ic:'😴'},
-  {l:'Kakalu',e:'Difficult / Hard',p:'kah-kah-loo',ic:'😤'},
-  {l:'Kawanvu',e:'Tall / Long',p:'kah-wahn-voo',ic:'🦒'},
-  {l:'Mulamu',e:'Alive / Healthy',p:'moo-lah-moo',ic:'🌱'},
-  {l:'Yenna',e:'All / Everyone',p:'yeh-nah',ic:'🌐'},
-  {l:'Kiragala',e:'Bright / Clear',p:'kee-rah-gah-lah',ic:'☀️'}
-],
-places:[
-  {l:'Kampala',e:'Capital of Uganda',p:'kahm-pah-lah',ic:'🏙️'},
-  {l:'Uganda',e:'Uganda',p:'oo-gahn-dah',ic:'🇺🇬'},
-  {l:'Eddwaliro',e:'Hospital',p:'eh-dwah-lee-roh',ic:'🏥'},
-  {l:'Ssomero',e:'School',p:'soh-meh-roh',ic:'🏫'},
-  {l:'Ekklesiya',e:'Church',p:'eh-kleh-see-yah',ic:'⛪'},
-  {l:'Misikiti',e:'Mosque',p:'mee-see-kee-tee',ic:'🕌'},
-  {l:'Makiro',e:'Market',p:'mah-kee-roh',ic:'🛒'},
-  {l:'Ennyanja',e:'Lake / Ocean',p:'eh-nyahn-jah',ic:'🌊'},
-  {l:'Olusozi',e:'Mountain / Hill',p:'oh-loo-soh-zee',ic:'⛰️'},
-  {l:'Oluguudo',e:'Road / Street',p:'oh-loo-goo-doh',ic:'🛣️'},
-  {l:'Ekibuga',e:'Town / City',p:'eh-kee-boo-gah',ic:'🏙️'},
-  {l:'Ekyalo',e:'Village',p:'eh-chah-loh',ic:'🏡'},
-  {l:'Ensi',e:'Country / Earth',p:'en-see',ic:'🌍'},
-  {l:'Lubiri',e:'Palace',p:'loo-bee-ree',ic:'🏰'},
-  {l:'Boda-boda',e:'Motorcycle taxi',p:'boh-dah boh-dah',ic:'🛵'},
-  {l:'Ettaxi',e:'Minibus taxi',p:'eh-tah-ksee',ic:'🚌'},
-  {l:'Entebbe',e:'Entebbe city',p:'en-teh-beh',ic:'✈️'},
-  {l:'Jinja',e:'Jinja city',p:'jeen-jah',ic:'🌊'},
-  {l:'Omusimo',e:'Bridge',p:'oh-moo-see-moh',ic:'🌉'},
-  {l:'Omukutu',e:'Road / Path',p:'oh-moo-koo-too',ic:'🛤️'},
-  {l:'Gavumenti',e:'Government',p:'gah-voo-mehn-tee',ic:'🏛️'},
-  {l:'Ssaza',e:'County',p:'sah-zah',ic:'🗺️'},
-  {l:'Ggombolola',e:'Sub-county',p:'gohm-boh-loh-lah',ic:'📍'},
-  {l:'Ennyumba',e:'Building / House',p:'eh-nyoom-bah',ic:'🏢'},
-  {l:'Ekivuyo',e:'Bus station',p:'eh-kee-voo-yoh',ic:'🚉'}
-],
-society:[
-  {l:'Obwakabaka',e:'Kingship / Monarchy',p:'oh-bwah-kah-bah-kah',ic:'👑'},
-  {l:'Ekika',e:'Clan',p:'eh-kee-kah',ic:'🧬'},
-  {l:'Amagezi',e:'Knowledge / Wisdom',p:'ah-mah-geh-zee',ic:'🧠'},
-  {l:'Empisa',e:'Customs / Manners',p:'ehm-pee-sah',ic:'🎭'},
-  {l:'Amateeka',e:'Law / Rules',p:'ah-mah-teh-kah',ic:'⚖️'},
-  {l:'Ekisaawe',e:'Celebration / Festival',p:'eh-kee-sah-weh',ic:'🎉'},
-  {l:'Ssente',e:'Money',p:'seh-nteh',ic:'💰'},
-  {l:'Obugagga',e:'Wealth / Riches',p:'oh-boo-gah-gah',ic:'💎'},
-  {l:'Empaka',e:'Competition',p:'ehm-pah-kah',ic:'🏆'},
-  {l:'Olukiiko',e:'Council / Meeting',p:'oh-loo-kee-koh',ic:'🏛️'},
-  {l:'Ekitiibwa',e:'Respect / Honor',p:'eh-kee-tee-bwah',ic:'🎖️'},
-  {l:'Obwesigwa',e:'Trust / Reliability',p:'oh-bweh-see-gwah',ic:'🤝'},
-  {l:'Obufumbo',e:'Marriage',p:'oh-boo-foom-boh',ic:'💍'},
-  {l:'Obuganzi',e:'Love / Affection',p:'oh-boo-gahn-zee',ic:'💞'},
-  {l:'Enzikiriza',e:'Faith / Belief',p:'en-zee-kee-ree-zah',ic:'🙏'},
-  {l:'Obuwangwa',e:'Nationality',p:'oh-boo-wahn-gwah',ic:'🌍'},
-  {l:'Oluwangula',e:'Freedom',p:'oh-loo-wahn-goo-lah',ic:'🕊️'},
-  {l:'Obwenkanya',e:'Equality',p:'oh-bwehn-kahn-yah',ic:'⚖️'},
-  {l:'Obulimu',e:'Employment / Work',p:'oh-boo-lee-moo',ic:'💼'},
-  {l:'Emipiiya',e:'Coins / Currency',p:'eh-mee-pee-yah',ic:'🪙'},
-  {l:'Amazima',e:'Truth / Facts',p:'ah-mah-zee-mah',ic:'💯'},
-  {l:'Omukwano',e:'Friendship',p:'oh-moo-kwah-noh',ic:'❤️'},
-  {l:'Obutonde',e:'Patience / Humility',p:'oh-boo-tohn-deh',ic:'🕊️'},
-  {l:'Enkulakulana',e:'Development',p:'en-koo-lah-koo-lah-nah',ic:'📈'},
-  {l:'Obwavu',e:'Poverty',p:'oh-bwah-voo',ic:'😔'}
-],
-questions:[
-  {l:'Ani',e:'Who?',p:'ah-nee',ic:'❓'},
-  {l:'Ki',e:'What?',p:'kee',ic:'🤔'},
-  {l:'Wa',e:'Where?',p:'wah',ic:'📍'},
-  {l:'Lwaki',e:'Why?',p:'lwah-kee',ic:'🤔'},
-  {l:'Ngamba',e:'How?',p:'ngahm-bah',ic:'💬'},
-  {l:'Mmeka',e:'How many?',p:'meh-kah',ic:'🔢'},
-  {l:'Oba',e:'Or / Maybe',p:'oh-bah',ic:'🤷'},
-  {l:'Naye',e:'But',p:'nah-yeh',ic:'↩️'},
-  {l:'Kuba',e:'Because',p:'koo-bah',ic:'💭'},
-  {l:'Kyokka',e:'Only / Just',p:'choh-kah',ic:'1️⃣'},
-  {l:'Bwokuba',e:'If',p:'bwoh-koo-bah',ic:'🔀'},
-  {l:'Era',e:'And / Also',p:'eh-rah',ic:'➕'},
-  {l:'Ne',e:'And / With',p:'neh',ic:'➕'},
-  {l:'Mu',e:'In / At',p:'moo',ic:'📍'},
-  {l:'Ekibuuzo',e:'Question',p:'eh-kee-boo-zoh',ic:'❓'},
-  {l:'Akasiimo',e:'Answer',p:'ah-kah-see-moh',ic:'💬'},
-  {l:'Ensonga',e:'Reason / Matter',p:'en-sohn-gah',ic:'💡'},
-  {l:'Kubanga',e:'Because / Since',p:'koo-bahn-gah',ic:'🔗'},
-  {l:'Kyebaana',e:'That is why',p:'cheh-bah-nah',ic:'👉'},
-  {l:'Oyo',e:'That one',p:'oh-yoh',ic:'👆'},
-  {l:'Kino',e:'This thing',p:'kee-noh',ic:'👇'},
-  {l:'Wadde',e:'Even though',p:'wah-deh',ic:'🔄'},
-  {l:'Noolwekyo',e:'Therefore',p:'noh-lweh-choh',ic:'💡'},
-  {l:'Nga',e:'Like / As',p:'ngah',ic:'🔄'},
-  {l:'Nti',e:'That (reported speech)',p:'n-tee',ic:'💬'}
-]
+var STORIES={
+greetings:{title:'A Morning Greeting',emoji:'🌅',text:'Kato wakes up and sees his neighbor. He says: <w l="Wasuze otya" e="Good morning">Wasuze otya</w>, <w l="Ssebo" e="Sir">Ssebo</w>! The neighbor replies: <w l="Bulungi" e="Fine">Bulungi</w>! Kato answers: <w l="Ndi bulungi" e="I am fine">Ndi bulungi</w>, <w l="Webale" e="thank you">webale</w>. He says <w l="Tulabye" e="Goodbye">Tulabye</w> and walks to work. At the market he says: <w l="Kale" e="Okay">Kale</w>! She smiles: <w l="Gyebale" e="Well done">Gyebale</w>! On the way back he greets: <w l="Osibye otya" e="Good afternoon">Osibye otya</w>. <w l="Teri kizibu" e="No problem">Teri kizibu</w>, it has been a good day.'},
+people:{title:'The Family',emoji:'👨‍👩‍👧',text:'<w l="Maama" e="Mother">Maama</w> is cooking. <w l="Taata" e="Father">Taata</w> sits reading. Their <w l="Abaana" e="Children">abaana</w> play in the yard. The oldest <w l="Omwana" e="Child">omwana</w> calls his <w l="Muganda" e="Sibling">muganda</w>. Nearby, <w l="Jjajja" e="Grandparent">jjajja</w> tells stories. The <w l="Omuwala" e="Girl">omuwala</w> listens carefully, while the <w l="Omulenzi" e="Boy">omulenzi</w> chases the dog. Their <w l="Musomesa" e="Teacher">musomesa</w> visits and their <w l="Omukwano" e="Friend">omukwano</w> joins too. <w l="Ababyeyi" e="Parents">Ababyeyi</w> smile — the family is complete.'},
+body:{title:'At the Doctor',emoji:'🏥',text:'Nalongo visits the <w l="Omusawo" e="Doctor">omusawo</w>. Her <w l="Omutwe" e="Head">omutwe</w> hurts and she has <w l="Olunyi" e="Pain">olunyi</w> in her <w l="Amagulu" e="Legs">amagulu</w>. The doctor checks her <w l="Omutima" e="Heart">omutima</w> and <w l="Amaaso" e="Eyes">amaaso</w>. He asks her to open her <w l="Akamwa" e="Mouth">akamwa</w> and checks her <w l="Omumiro" e="Throat">omumiro</w>. He takes her <w l="Ensaayi" e="Blood">ensaayi</w> pressure. Her <w l="Obulamu" e="Health">obulamu</w> is fine but she must rest her <w l="Omugongo" e="Back">omugongo</w> and take <w l="Eddagala" e="Medicine">eddagala</w>.'},
+food:{title:'A Ugandan Meal',emoji:'🍽️',text:'Aisha prepares <w l="Emmere" e="Food">emmere</w>. She cooks <w l="Ebitooke" e="Matoke">ebitooke</w> with <w l="Ennyama" e="Meat">ennyama</w> and <w l="Enva" e="Vegetables">enva</w>. She adds <w l="Enjuba" e="Salt">enjuba</w> and <w l="Mafuta" e="Oil">mafuta</w>. She also boils <w l="Ekijanjaalo" e="Beans">ekijanjaalo</w>. The children smell the food and run in! She serves it with <w l="Amazzi" e="Water">amazzi</w>. After eating they have sweet <w l="Emiyembe" e="Mangoes">emiyembe</w> and drink <w l="Caayi" e="Tea">caayi</w>. No more <w l="Enjala" e="Hunger">enjala</w> today!'},
+home:{title:'A Day at Home',emoji:'🏠',text:'Sarah wakes in her <w l="Enju" e="House">enju</w>. She sits on her <w l="Bbeddi" e="Bed">bbeddi</w> and picks up her <w l="Simu" e="Phone">simu</w>. She goes to the <w l="Ekyoto" e="Kitchen">ekyoto</w> and grabs the <w l="Entobo" e="Knife">entobo</w> to cut vegetables. She sweeps with her <w l="Endeku" e="Broom">endeku</w> and unlocks the <w l="Oluggi" e="Door">oluggi</w> with her <w l="Nnambooze" e="Key">nnambooze</w>. In the evening she sits on an <w l="Entebe" e="Chair">entebe</w> by the <w l="Omuliro" e="Fire">omuliro</w> and reads her <w l="Ekitabo" e="Book">ekitabo</w> under the <w l="Ettaala" e="Lamp">ettaala</w>.'},
+nature:{title:'A Walk in Nature',emoji:'🌿',text:'James walks through the <w l="Ekibira" e="Forest">ekibira</w>. Above, an <w l="Enyonyi" e="Bird">enyonyi</w> sings in the <w l="Omuti" e="Tree">omuti</w>. He hears <w l="Enkuba" e="Rain">enkuba</w> coming and feels the <w l="Empewo" e="Wind">empewo</w>. Near the <w l="Omugga" e="River">omugga</w> he sees an <w l="Enkima" e="Monkey">enkima</w>. A large <w l="Enjovu" e="Elephant">enjovu</w> walks slowly past. The <w l="Enjuba" e="Sun">enjuba</w> sets beautifully, <w l="Ekibulanku" e="Cloud">ekibulanku</w> turns pink, and the <w l="Omwezi" e="Moon">omwezi</w> rises slowly into the sky.'},
+numbers:{title:'Market Day',emoji:'🛒',text:'Mama goes to the market. She buys <w l="Bbiri" e="Two">bbiri</w> mangoes and <w l="Ssatu" e="Three">ssatu</w> tomatoes. The vendor asks for <w l="Ttaano" e="Five">ttaano</w> coins. She checks the <w l="Sawa" e="Time">sawa</w> — it is getting late. It is <w l="Leero" e="Today">leero</w> she must finish, because <w l="Enkya" e="Tomorrow">enkya</w> she has no time. She must be home before <w l="Ekiro" e="Night">ekiro</w>. By <w l="Entuntu" e="Morning">entuntu</w> tomorrow the market will be full again. It is now <w l="Omukaaga" e="Evening">omukaaga</w> and she hurries home.'},
+verbs:{title:'A Busy Day',emoji:'⚒️',text:'John must <w l="Okugenda" e="Go">okugenda</w> to the farm to <w l="Okulima" e="Farm">okulima</w>. First he must <w l="Okulya" e="Eat">okulya</w> and <w l="Okunywa" e="Drink">okunywa</w> tea. He likes to <w l="Okuyimba" e="Sing">okuyimba</w> while he works. His children <w l="Okusoma" e="Study">okusoma</w> at school. He must <w l="Okuyamba" e="Help">okuyamba</w> his neighbor <w l="Okuzimba" e="Build">okuzimba</w> a new room. In the evening he wants to <w l="Okutuula" e="Sit">okutuula</w> and <w l="Okuwulira" e="Listen">okuwulira</w> to music, then <w l="Okuloga" e="Sleep">okuloga</w> early.'},
+adjectives:{title:'Describing the Village',emoji:'🌸',text:'The village is <w l="Bulungi" e="Beautiful">bulungi</w>. The houses are <w l="Kiggya" e="New">kiggya</w> but some are <w l="Kadde" e="Old">kadde</w> and <w l="Mugumu" e="Strong">mugumu</w>. Children are <w l="Mangu" e="Fast">mangu</w> but grandfather is <w l="Mpola" e="Slow">mpola</w>. The mango tree is <w l="Kinene" e="Big">kinene</w> and the seedling is <w l="Katono" e="Small">katono</w>. The market woman is <w l="Mugabi" e="Generous">mugabi</w> and her fruit is <w l="Nyooma" e="Sweet">nyooma</w>. The wise elder is <w l="Mwerevu" e="Clever">mwerevu</w> and <w l="Mwoyo omulungi" e="Kind-hearted">mwoyo omulungi</w>. Life here is <w l="Mazima" e="Truly">mazima</w> good.'},
+places:{title:'Travelling to Kampala',emoji:'🚌',text:'Grace takes the <w l="Ettaxi" e="Taxi">ettaxi</w> from her <w l="Ekyalo" e="Village">ekyalo</w> to <w l="Kampala" e="Kampala">Kampala</w>. She crosses a <w l="Omusimo" e="Bridge">omusimo</w> over the river. She passes the big <w l="Eddwaliro" e="Hospital">eddwaliro</w> and the old <w l="Ekklesiya" e="Church">ekklesiya</w>. She visits the <w l="Makiro" e="Market">makiro</w> and the <w l="Ssomero" e="School">ssomero</w>. She rides a <w l="Boda-boda" e="Boda boda">boda-boda</w> to the <w l="Lubiri" e="Palace">lubiri</w>. Near the <w l="Gavumenti" e="Government">gavumenti</w> building, she finds the <w l="Ekivuyo" e="Bus station">ekivuyo</w>. She loves the <w l="Ekibuga" e="City">ekibuga</w>!'},
+society:{title:'The Village Council',emoji:'🏛️',text:'The <w l="Olukiiko" e="Council">olukiiko</w> meets today. Elders discuss <w l="Amateeka" e="Laws">amateeka</w> and community <w l="Empaka" e="Challenges">empaka</w>. They speak about <w l="Enkulakulana" e="Development">enkulakulana</w>. Everyone shows <w l="Ekitiibwa" e="Respect">ekitiibwa</w>. A young man speaks about <w l="Obwenkanya" e="Equality">obwenkanya</w> and <w l="Oluwangula" e="Freedom">oluwangula</w>. The chief shares <w l="Amagezi" e="Wisdom">amagezi</w>. Everyone agrees: <w l="Obuganzi" e="Love">obuganzi</w> and <w l="Obwesigwa" e="Trust">obwesigwa</w> are the foundation of community. The meeting ends in <w l="Emirembe" e="Peace">emirembe</w>.'},
+questions:{title:'Lost in the Market',emoji:'🗺️',text:'Tendo is lost. He asks: <w l="Wa" e="Where">Wa</w> is the bus stop? She asks: <w l="Lwaki" e="Why">Lwaki</w> are you going there? He says: <w l="Kubanga" e="Because">Kubanga</w> I need to go home. She asks: <w l="Ani" e="Who">Ani</w> brought you? <w l="Ki" e="What">Ki</w> is your name? He answers <w l="Nti" e="that">nti</w> his name is Tendo. <w l="Naye" e="But">Naye</w> — she laughs — the stop is right here! <w l="Kyebaana" e="That is why">Kyebaana</w> you must always <w l="Okumanya" e="Know">okumanya</w> where you are going! <w l="Teri kizibu" e="No problem">Teri kizibu</w>, now you know!'}
 };
 
-// Short stories per category
-var STORIES = {
-greetings:{
-  title:'A Morning Greeting',emoji:'🌅',
-  text:'Kato wakes up and sees his neighbor. He says: <w l="Wasuze otya" e="Good morning">Wasuze otya</w>, <w l="Ssebo" e="Sir">Ssebo</w>! The neighbor replies: <w l="Bulungi" e="Fine/Good">Bulungi</w>! How are you? Kato answers: <w l="Bulungi" e="I\'m fine">Bulungi</w> <w l="Webale" e="Thank you">webale</w>. He then says <w l="Tulabye" e="Goodbye">Tulabye</w> and walks to work. At the market he meets a woman. <w l="Kale" e="Okay">Kale</w>, he says. She smiles and replies: <w l="Gyebale" e="Well done">Gyebale</w>!'
-},
-people:{
-  title:'The Family',emoji:'👨‍👩‍👧',
-  text:'<w l="Maama" e="Mother">Maama</w> is cooking in the kitchen. <w l="Taata" e="Father">Taata</w> sits outside reading. Their <w l="Abaana" e="Children">abaana</w> are playing in the yard. The oldest <w l="Omwana" e="Child">omwana</w> calls out to his <w l="Muganda" e="Sibling">muganda</w>. Nearby, <w l="Jjajja" e="Grandparent">jjajja</w> sits under a tree telling stories. The young <w l="Omuwala" e="Girl">omuwala</w> listens carefully, while the <w l="Omulenzi" e="Boy">omulenzi</w> chases the dog.'
-},
-body:{
-  title:'At the Doctor',emoji:'🏥',
-  text:'Nalongo visits the <w l="Omusawo" e="Doctor">omusawo</w>. She says her <w l="Omutwe" e="Head">omutwe</w> is hurting and she has <w l="Olunyi" e="Pain">olunyi</w> in her <w l="Amagulu" e="Legs">amagulu</w>. The doctor checks her <w l="Omutima" e="Heart">omutima</w> and looks at her <w l="Amaaso" e="Eyes">amaaso</w>. He asks her to open her <w l="Akamwa" e="Mouth">akamwa</w>. He says her <w l="Obulamu" e="Health">obulamu</w> is generally fine but she should rest her <w l="Omugongo" e="Back">omugongo</w>.'
-},
-food:{
-  title:'A Ugandan Meal',emoji:'🍽️',
-  text:'Aisha prepares <w l="Emmere" e="Food">emmere</w> for her family. She cooks <w l="Ebitooke" e="Matoke">ebitooke</w> and <w l="Ennyama" e="Meat">ennyama</w> with <w l="Enva" e="Vegetables">enva</w>. She adds <w l="Enjuba" e="Salt">enjuba</w> and <w l="Mafuta" e="Oil">mafuta</w> for flavor. The children smell the food and run inside. She serves it with <w l="Amazzi" e="Water">amazzi</w>. After eating, they have sweet <w l="Emiyembe" e="Mangoes">emiyembe</w>. Everyone is happy — no more <w l="Enjala" e="Hunger">enjala</w> today!'
-},
-home:{
-  title:'A Day at Home',emoji:'🏠',
-  text:'Sarah wakes up in her <w l="Enju" e="House">enju</w>. She sits on her <w l="Bbeddi" e="Bed">bbeddi</w> and picks up her <w l="Simu" e="Phone">simu</w>. Then she goes to the <w l="Ekyoto" e="Kitchen">ekyoto</w> to cook. She grabs the <w l="Entobo" e="Knife">entobo</w> to cut vegetables. Later, she sweeps the floor with her <w l="Endeku" e="Broom">endeku</w>. In the evening she sits on an <w l="Entebe" e="Chair">entebe</w> by the <w l="Omuliro" e="Fire">omuliro</w> and reads her <w l="Ekitabo" e="Book">ekitabo</w>.'
-},
-nature:{
-  title:'A Walk in Nature',emoji:'🌿',
-  text:'James walks through the <w l="Ekibira" e="Forest">ekibira</w>. Above him, an <w l="Enyonyi" e="Bird">enyonyi</w> sings in the <w l="Omuti" e="Tree">omuti</w>. He hears <w l="Enkuba" e="Rain">enkuba</w> coming and feels the <w l="Empewo" e="Wind">empewo</w>. Near the <w l="Omugga" e="River">omugga</w>, he sees an <w l="Enkima" e="Monkey">enkima</w> jumping. In the distance a large <w l="Enjovu" e="Elephant">enjovu</w> walks slowly. The <w l="Enjuba" e="Sun">enjuba</w> sets and the <w l="Omwezi" e="Moon">omwezi</w> rises in the sky.'
-},
-numbers:{
-  title:'Market Day',emoji:'🛒',
-  text:'Mama goes to the market with her <w l="Abaana" e="Children">abaana</w>. She buys <w l="Bbiri" e="Two">bbiri</w> mangoes and <w l="Ssatu" e="Three">ssatu</w> tomatoes. The vendor asks for <w l="Ttaano" e="Five">ttaano</w> coins. She checks the <w l="Sawa" e="Time">sawa</w> — it is getting late. It is <w l="Leero" e="Today">leero</w> that she must finish her shopping, because <w l="Enkya" e="Tomorrow">enkya</w> she has no time. She pays and heads home before <w l="Ekiro" e="Night">ekiro</w> falls.'
-},
-verbs:{
-  title:'A Busy Day',emoji:'⚒️',
-  text:'John wakes early. He must <w l="Okugenda" e="Go">okugenda</w> to the farm to <w l="Okulima" e="Farm">okulima</w>. First he must <w l="Okulya" e="Eat">okulya</w> breakfast and <w l="Okunywa" e="Drink">okunywa</w> his tea. He likes to <w l="Okuyimba" e="Sing">okuyimba</w> while he works. When he finishes, he wants to <w l="Okutuula" e="Sit">okutuula</w> and rest. In the evening he goes to <w l="Okusoma" e="Study">okusoma</w>. Before sleeping he calls his family to <w l="Okwogera" e="Speak">okwogera</w> with them.'
-},
-adjectives:{
-  title:'Describing the Village',emoji:'🌸',
-  text:'The village is <w l="Bulungi" e="Beautiful">bulungi</w>. The houses are <w l="Kiggya" e="New">kiggya</w> but some are <w l="Kadde" e="Old">kadde</w> and <w l="Mugumu" e="Strong">mugumu</w>. The children are <w l="Mangu" e="Fast">mangu</w> runners but their grandfather is <w l="Mpola" e="Slow">mpola</w>. The mango tree is <w l="Kinene" e="Big">kinene</w> and the avocado tree is <w l="Katono" e="Small">katono</w>. The market woman is <w l="Mugabi" e="Generous">mugabi</w> and her fruit is <w l="Nyooma" e="Sweet">nyooma</w>. Life here is <w l="Mazima" e="Truly">mazima</w> good.'
-},
-places:{
-  title:'Travelling to Kampala',emoji:'🚌',
-  text:'Grace takes the <w l="Ettaxi" e="Taxi">ettaxi</w> from her <w l="Ekyalo" e="Village">ekyalo</w> to <w l="Kampala" e="Kampala">Kampala</w>. She crosses a long <w l="Omusimo" e="Bridge">omusimo</w> over the river. In the city she visits the <w l="Makiro" e="Market">makiro</w> and the big <w l="Eddwaliro" e="Hospital">eddwaliro</w>. She passes the <w l="Ssomero" e="School">ssomero</w> and the old <w l="Ekklesiya" e="Church">ekklesiya</w>. She rides a <w l="Boda-boda" e="Boda boda">boda-boda</w> to the <w l="Lubiri" e="Palace">lubiri</w>. She loves the <w l="Ekibuga" e="City">ekibuga</w>!'
-},
-society:{
-  title:'The Village Council',emoji:'🏛️',
-  text:'The village <w l="Olukiiko" e="Council">olukiiko</w> meets today. The elders discuss <w l="Amateeka" e="Laws">amateeka</w> and community <w l="Empaka" e="Challenges">empaka</w>. They speak about the <w l="Enkulakulana" e="Development">enkulakulana</w> of the village. Everyone shows <w l="Ekitiibwa" e="Respect">ekitiibwa</w> for the elders. A young man stands up to speak about <w l="Obwenkanya" e="Equality">obwenkanya</w>. The chief shares <w l="Amagezi" e="Wisdom">amagezi</w>. Everyone agrees — the <w l="Obuganzi" e="Love">obuganzi</w> of community matters most.'
-},
-questions:{
-  title:'Lost in the Market',emoji:'🗺️',
-  text:'Tendo is lost. He asks a woman: <w l="Wa" e="Where">Wa</w> is the bus stop? She says: <w l="Lwaki" e="Why">Lwaki</w> are you going there? He explains: <w l="Kubanga" e="Because">kubanga</w> I need to go home. She asks: <w l="Ani" e="Who">Ani</w> brought you here? <w l="Ki" e="What">Ki</w> is your name? He answers <w l="Nti" e="that">nti</w> his name is Tendo. <w l="Naye" e="But">Naye</w> — she laughs — the bus stop is right here! <w l="Kyebaana" e="That is why">Kyebaana</w> you should always pay attention!'
-}
-};
-
-// FILL IN THE BLANK sentences per category
-var FILL_SENTENCES = {
+var FILL={
 greetings:[
-  {before:'In the morning you say:',blank:'Wasuze otya',after:'to greet someone.',target:'Wasuze otya',hint:'Morning greeting'},
-  {before:'To say thank you, you say:',blank:'Webale',after:'.',target:'Webale',hint:'Gratitude'},
+  {before:'To greet in the morning:',blank:'Wasuze otya',after:'.',target:'Wasuze otya',hint:'Morning greeting'},
+  {before:'Thank you in Luganda:',blank:'Webale',after:'.',target:'Webale',hint:'Gratitude'},
   {before:'To say goodbye:',blank:'Tulabye',after:'.',target:'Tulabye',hint:'Farewell'},
-  {before:'To say yes in Luganda:',blank:'Yee',after:'.',target:'Yee',hint:'Agreement'},
-  {before:'Good night is:',blank:'Sula bulungi',after:'.',target:'Sula bulungi',hint:'Nighttime farewell'}
+  {before:'Yes in Luganda is:',blank:'Yee',after:'.',target:'Yee',hint:'Agreement'},
+  {before:'Good night is:',blank:'Sula bulungi',after:'.',target:'Sula bulungi',hint:'Nighttime farewell'},
+  {before:'I am fine is:',blank:'Ndi bulungi',after:'.',target:'Ndi bulungi',hint:'Wellbeing'},
+  {before:'No problem is:',blank:'Teri kizibu',after:'.',target:'Teri kizibu',hint:'Reassurance'}
 ],
 people:[
-  {before:'Your mother is called:',blank:'Maama',after:'in Luganda.',target:'Maama',hint:'Parent'},
-  {before:'A boy is called:',blank:'Omulenzi',after:'.',target:'Omulenzi',hint:'Young male'},
-  {before:'Your grandparent is called:',blank:'Jjajja',after:'.',target:'Jjajja',hint:'Older generation'},
-  {before:'A teacher is called:',blank:'Musomesa',after:'.',target:'Musomesa',hint:'Education'},
-  {before:'A doctor is:',blank:'Omusawo',after:'.',target:'Omusawo',hint:'Healthcare'}
+  {before:'Your mother is:',blank:'Maama',after:'.',target:'Maama',hint:'Parent'},
+  {before:'A boy is:',blank:'Omulenzi',after:'.',target:'Omulenzi',hint:'Young male'},
+  {before:'Your grandparent is:',blank:'Jjajja',after:'.',target:'Jjajja',hint:'Older generation'},
+  {before:'A teacher is:',blank:'Musomesa',after:'.',target:'Musomesa',hint:'Education'},
+  {before:'A doctor is:',blank:'Omusawo',after:'.',target:'Omusawo',hint:'Healthcare'},
+  {before:'A farmer is:',blank:'Omulimi',after:'.',target:'Omulimi',hint:'Agriculture'},
+  {before:'Parents are:',blank:'Ababyeyi',after:'.',target:'Ababyeyi',hint:'Both parents'}
 ],
 body:[
-  {before:'Your eyes are called:',blank:'Amaaso',after:'in Luganda.',target:'Amaaso',hint:'Vision'},
-  {before:'The heart is called:',blank:'Omutima',after:'.',target:'Omutima',hint:'Vital organ'},
+  {before:'Your eyes are called:',blank:'Amaaso',after:'.',target:'Amaaso',hint:'Vision'},
+  {before:'The heart is:',blank:'Omutima',after:'.',target:'Omutima',hint:'Vital organ'},
   {before:'Head in Luganda is:',blank:'Omutwe',after:'.',target:'Omutwe',hint:'Top of body'},
-  {before:'Pain is called:',blank:'Olunyi',after:'.',target:'Olunyi',hint:'Discomfort'},
-  {before:'Blood is:',blank:'Ensaayi',after:'.',target:'Ensaayi',hint:'Red fluid'}
+  {before:'Pain is:',blank:'Olunyi',after:'.',target:'Olunyi',hint:'Discomfort'},
+  {before:'Blood is:',blank:'Ensaayi',after:'.',target:'Ensaayi',hint:'Red fluid'},
+  {before:'Medicine is:',blank:'Eddagala',after:'.',target:'Eddagala',hint:'Treatment'},
+  {before:'Strength is:',blank:'Obutonde',after:'.',target:'Obutonde',hint:'Physical power'}
 ],
 food:[
-  {before:'The staple dish of Uganda is:',blank:'Ebitooke',after:'(matoke).',target:'Ebitooke',hint:'Plantain dish'},
-  {before:'Water in Luganda is:',blank:'Amazzi',after:'.',target:'Amazzi',hint:'Essential liquid'},
-  {before:'Meat is called:',blank:'Ennyama',after:'.',target:'Ennyama',hint:'Protein'},
-  {before:'Coffee is:',blank:'Kaawa',after:'in Luganda.',target:'Kaawa',hint:'Hot drink'},
-  {before:'Hunger is called:',blank:'Enjala',after:'.',target:'Enjala',hint:'Need for food'}
+  {before:'The staple dish is:',blank:'Ebitooke',after:'(matoke).',target:'Ebitooke',hint:'Plantain dish'},
+  {before:'Water in Luganda:',blank:'Amazzi',after:'.',target:'Amazzi',hint:'Essential liquid'},
+  {before:'Meat is:',blank:'Ennyama',after:'.',target:'Ennyama',hint:'Protein'},
+  {before:'Coffee is:',blank:'Kaawa',after:'.',target:'Kaawa',hint:'Hot drink'},
+  {before:'Hunger is:',blank:'Enjala',after:'.',target:'Enjala',hint:'Need for food'},
+  {before:'Beans are:',blank:'Ekijanjaalo',after:'.',target:'Ekijanjaalo',hint:'Legume'},
+  {before:'Tea is:',blank:'Caayi',after:'.',target:'Caayi',hint:'Hot beverage'}
 ],
 home:[
-  {before:'House in Luganda is:',blank:'Enju',after:'.',target:'Enju',hint:'Where you live'},
-  {before:'A bed is called:',blank:'Bbeddi',after:'.',target:'Bbeddi',hint:'Furniture'},
+  {before:'House in Luganda:',blank:'Enju',after:'.',target:'Enju',hint:'Where you live'},
+  {before:'A bed is:',blank:'Bbeddi',after:'.',target:'Bbeddi',hint:'Furniture for sleeping'},
   {before:'A door is:',blank:'Oluggi',after:'.',target:'Oluggi',hint:'Entrance'},
   {before:'A broom is:',blank:'Endeku',after:'.',target:'Endeku',hint:'Cleaning tool'},
-  {before:'A key is:',blank:'Nnambooze',after:'.',target:'Nnambooze',hint:'Opens locks'}
+  {before:'A key is:',blank:'Nnambooze',after:'.',target:'Nnambooze',hint:'Opens locks'},
+  {before:'A lamp is:',blank:'Ettaala',after:'.',target:'Ettaala',hint:'Light source'},
+  {before:'A basket is:',blank:'Ensero',after:'.',target:'Ensero',hint:'Woven container'}
 ],
 nature:[
-  {before:'A tree is called:',blank:'Omuti',after:'in Luganda.',target:'Omuti',hint:'Tall plant'},
-  {before:'Rain is called:',blank:'Enkuba',after:'.',target:'Enkuba',hint:'Weather'},
+  {before:'A tree is:',blank:'Omuti',after:'.',target:'Omuti',hint:'Tall plant'},
+  {before:'Rain is:',blank:'Enkuba',after:'.',target:'Enkuba',hint:'Weather'},
   {before:'The sun is:',blank:'Enjuba',after:'.',target:'Enjuba',hint:'Bright star'},
   {before:'A river is:',blank:'Omugga',after:'.',target:'Omugga',hint:'Flowing water'},
-  {before:'An elephant is:',blank:'Enjovu',after:'.',target:'Enjovu',hint:'Large animal'}
+  {before:'An elephant is:',blank:'Enjovu',after:'.',target:'Enjovu',hint:'Large animal'},
+  {before:'A cloud is:',blank:'Ekibulanku',after:'.',target:'Ekibulanku',hint:'In the sky'},
+  {before:'The moon is:',blank:'Omwezi',after:'.',target:'Omwezi',hint:'Night light'}
 ],
 numbers:[
-  {before:'The number one is:',blank:'Emu',after:'.',target:'Emu',hint:'First number'},
-  {before:'Five is called:',blank:'Ttaano',after:'.',target:'Ttaano',hint:'Count on one hand'},
+  {before:'The number one:',blank:'Emu',after:'.',target:'Emu',hint:'First number'},
+  {before:'Five is:',blank:'Ttaano',after:'.',target:'Ttaano',hint:'One hand'},
   {before:'Ten is:',blank:'Kkumi',after:'.',target:'Kkumi',hint:'Two hands'},
   {before:'Today is:',blank:'Leero',after:'.',target:'Leero',hint:'This day'},
-  {before:'Tomorrow is:',blank:'Enkya',after:'.',target:'Enkya',hint:'Next day'}
+  {before:'Tomorrow is:',blank:'Enkya',after:'.',target:'Enkya',hint:'Next day'},
+  {before:'One hundred is:',blank:'Kikumi',after:'.',target:'Kikumi',hint:'Large number'},
+  {before:'A minute is:',blank:'Dakkika',after:'.',target:'Dakkika',hint:'Short time unit'}
 ],
 verbs:[
-  {before:'To eat in Luganda is:',blank:'Okulya',after:'.',target:'Okulya',hint:'Food action'},
+  {before:'To eat is:',blank:'Okulya',after:'.',target:'Okulya',hint:'Food action'},
   {before:'To go is:',blank:'Okugenda',after:'.',target:'Okugenda',hint:'Movement'},
   {before:'To sleep is:',blank:'Okuloga',after:'.',target:'Okuloga',hint:'Rest'},
   {before:'To cook is:',blank:'Okufumba',after:'.',target:'Okufumba',hint:'Kitchen action'},
   {before:'To sing is:',blank:'Okuyimba',after:'.',target:'Okuyimba',hint:'Music'},
   {before:'To think is:',blank:'Okulowooza',after:'.',target:'Okulowooza',hint:'Mental action'},
   {before:'To help is:',blank:'Okuyamba',after:'.',target:'Okuyamba',hint:'Assistance'},
-  {before:'To build is:',blank:'Okuzimba',after:'.',target:'Okuzimba',hint:'Construction'}
+  {before:'To build is:',blank:'Okuzimba',after:'.',target:'Okuzimba',hint:'Construction'},
+  {before:'To remember is:',blank:'Okujukira',after:'.',target:'Okujukira',hint:'Memory'},
+  {before:'To understand is:',blank:'Okutegeera',after:'.',target:'Okutegeera',hint:'Comprehension'}
 ],
 adjectives:[
   {before:'Beautiful or good is:',blank:'Bulungi',after:'.',target:'Bulungi',hint:'Positive quality'},
   {before:'Big or large is:',blank:'Kinene',after:'.',target:'Kinene',hint:'Size'},
-  {before:'Fast is called:',blank:'Mangu',after:'.',target:'Mangu',hint:'Speed'},
+  {before:'Fast is:',blank:'Mangu',after:'.',target:'Mangu',hint:'Speed'},
   {before:'Sweet is:',blank:'Nyooma',after:'.',target:'Nyooma',hint:'Taste'},
-  {before:'New is:',blank:'Kiggya',after:'.',target:'Kiggya',hint:'Recent'}
+  {before:'New is:',blank:'Kiggya',after:'.',target:'Kiggya',hint:'Recent'},
+  {before:'Clever is:',blank:'Mwerevu',after:'.',target:'Mwerevu',hint:'Intelligence'},
+  {before:'Generous is:',blank:'Mugabi',after:'.',target:'Mugabi',hint:'Giving quality'}
 ],
 places:[
-  {before:'The capital of Uganda is:',blank:'Kampala',after:'.',target:'Kampala',hint:'Major city'},
+  {before:'Capital of Uganda:',blank:'Kampala',after:'.',target:'Kampala',hint:'Major city'},
   {before:'A school is:',blank:'Ssomero',after:'.',target:'Ssomero',hint:'Learning place'},
   {before:'A market is:',blank:'Makiro',after:'.',target:'Makiro',hint:'Shopping place'},
   {before:'A village is:',blank:'Ekyalo',after:'.',target:'Ekyalo',hint:'Rural settlement'},
-  {before:'A bridge is:',blank:'Omusimo',after:'.',target:'Omusimo',hint:'Crosses water'}
+  {before:'A bridge is:',blank:'Omusimo',after:'.',target:'Omusimo',hint:'Crosses water'},
+  {before:'A hospital is:',blank:'Eddwaliro',after:'.',target:'Eddwaliro',hint:'Medical centre'},
+  {before:'A church is:',blank:'Ekklesiya',after:'.',target:'Ekklesiya',hint:'Place of worship'}
 ],
 society:[
-  {before:'Money in Luganda is:',blank:'Ssente',after:'.',target:'Ssente',hint:'Currency'},
+  {before:'Money in Luganda:',blank:'Ssente',after:'.',target:'Ssente',hint:'Currency'},
   {before:'A festival is:',blank:'Ekisaawe',after:'.',target:'Ekisaawe',hint:'Celebration'},
   {before:'Marriage is:',blank:'Obufumbo',after:'.',target:'Obufumbo',hint:'Union'},
   {before:'Respect is:',blank:'Ekitiibwa',after:'.',target:'Ekitiibwa',hint:'Honour'},
-  {before:'Wisdom is:',blank:'Amagezi',after:'.',target:'Amagezi',hint:'Knowledge'}
+  {before:'Wisdom is:',blank:'Amagezi',after:'.',target:'Amagezi',hint:'Knowledge'},
+  {before:'Freedom is:',blank:'Oluwangula',after:'.',target:'Oluwangula',hint:'Liberty'},
+  {before:'Equality is:',blank:'Obwenkanya',after:'.',target:'Obwenkanya',hint:'Fairness'}
 ],
 questions:[
-  {before:'To ask who, you say:',blank:'Ani',after:'?',target:'Ani',hint:'Person question'},
-  {before:'To ask where, you say:',blank:'Wa',after:'?',target:'Wa',hint:'Location question'},
-  {before:'To ask why, you say:',blank:'Lwaki',after:'?',target:'Lwaki',hint:'Reason question'},
-  {before:'Because in Luganda is:',blank:'Kubanga',after:'.',target:'Kubanga',hint:'Cause word'},
-  {before:'But in Luganda is:',blank:'Naye',after:'.',target:'Naye',hint:'Contrast word'}
+  {before:'To ask who:',blank:'Ani',after:'?',target:'Ani',hint:'Person question'},
+  {before:'To ask where:',blank:'Wa',after:'?',target:'Wa',hint:'Location question'},
+  {before:'To ask why:',blank:'Lwaki',after:'?',target:'Lwaki',hint:'Reason question'},
+  {before:'Because is:',blank:'Kubanga',after:'.',target:'Kubanga',hint:'Cause word'},
+  {before:'But is:',blank:'Naye',after:'.',target:'Naye',hint:'Contrast word'},
+  {before:'To learn is:',blank:'Okuyiga',after:'.',target:'Okuyiga',hint:'Education verb'},
+  {before:'To know is:',blank:'Okumanya',after:'.',target:'Okumanya',hint:'Knowledge verb'}
 ]
 };
 
-// State
-var currentCat='greetings', learnedWords=new Set(JSON.parse(localStorage.getItem('lg_learned')||'[]')), mode='browse', quizState={}, pairsState={}, fillState={}, storyState={cat:null};
+var currentCat='greetings',learnedWords=new Set(JSON.parse(localStorage.getItem('lg_learned')||'[]')),mode='browse',quizState={},pairsState={},fillState={},storyState={cat:null};
 
 function save(){try{localStorage.setItem('lg_learned',JSON.stringify([...learnedWords]));}catch(e){}updateProgress();}
 function updateProgress(){var t=Object.values(VOCAB).flat().length,c=learnedWords.size;document.getElementById('progress-text').textContent=c+' / '+t+' learned';document.getElementById('progress-fill').style.width=Math.round(c/t*100)+'%';}
@@ -699,7 +291,7 @@ function buildSidebar(){
   var h='<div><div class="sidebar-label">Categories</div>';
   CATS.forEach(function(c){
     var ws=VOCAB[c.id]||[],lc=ws.filter(function(w){return learnedWords.has(c.id+':'+w.l);}).length;
-    h+='<button class="cat-btn'+(currentCat===c.id?' active':'')+'" onclick="selectCat(\''+c.id+'\')"><span class="cat-icon">'+c.icon+'</span><span>'+c.label+'</span><span class="cat-count">'+lc+'/'+ws.length+'</span></button>';
+    h+='<button class="cat-btn'+(currentCat===c.id?' active':'')+'" onclick="selectCat(\''+c.id+'\')">'+'<span class="cat-icon">'+c.icon+'</span><span>'+c.label+'</span><span class="cat-count">'+lc+'/'+ws.length+'</span></button>';
   });
   document.getElementById('sidebar').innerHTML=h+'</div>';
 }
@@ -710,8 +302,7 @@ function render(){
   var sv='',es=document.getElementById('search-input');if(es)sv=es.value;
   var filtered=words;
   if(sv&&mode==='browse'){var q=sv.toLowerCase();filtered=words.filter(function(w){return w.l.toLowerCase().includes(q)||w.e.toLowerCase().includes(q);});}
-
-  var h='<div class="content-hdr"><h1 class="content-title">'+cat.icon+' '+cat.label+'</h1><p class="content-desc">'+words.length+' words &nbsp;·&nbsp; tap a mode to learn</p></div>';
+  var h='<div class="content-hdr"><h1 class="content-title">'+cat.icon+' '+cat.label+'</h1><p class="content-desc">'+words.length+' words &nbsp;·&nbsp; choose a mode below</p></div>';
   if(mode==='browse')h+='<input class="search-input" id="search-input" type="text" placeholder="Search Luganda or English…" value="'+sv+'" oninput="onSearch(this.value)">';
   h+='<div class="mode-bar">'
     +'<button class="mode-btn'+(mode==='browse'?' active':'')+'" onclick="setMode(\'browse\')">📚 Browse</button>'
@@ -720,51 +311,45 @@ function render(){
     +'<button class="mode-btn'+(mode==='fill'?' active':'')+'" onclick="setMode(\'fill\')">✏️ Fill Blank</button>'
     +'<button class="mode-btn'+(mode==='story'?' active':'')+'" onclick="setMode(\'story\')">📖 Story</button>'
     +'</div>';
-
-  if(mode==='browse') h+=renderBrowse(filtered);
-  else if(mode==='quiz') h+=renderQuiz(words);
-  else if(mode==='pairs') h+=renderPairs(words);
-  else if(mode==='fill') h+=renderFill(words);
-  else if(mode==='story') h+=renderStory();
-
+  if(mode==='browse')h+=renderBrowse(filtered);
+  else if(mode==='quiz')h+=renderQuiz(words);
+  else if(mode==='pairs')h+=renderPairs(words);
+  else if(mode==='fill')h+=renderFill(words);
+  else if(mode==='story')h+=renderStory();
   document.getElementById('content').innerHTML=h;
 }
 
 function setMode(m){mode=m;if(m==='quiz')initQuiz();else if(m==='pairs')initPairs();else if(m==='fill')initFill();render();}
 function onSearch(v){render();var si=document.getElementById('search-input');if(si){si.value=v;si.focus();}}
 
-// BROWSE
 function renderBrowse(words){
   if(!words.length)return'<div class="empty">No words found.</div>';
   var h='<div class="word-grid">';
   words.forEach(function(w){
     var key=currentCat+':'+w.l,isl=learnedWords.has(key),sw=w.l.replace(/'/g,"\\'"),sc=currentCat;
-    h+='<div class="word-card'+(isl?' learned':'')+'"><div class="pictogram">'+w.ic+'</div><div class="luganda-word">'+w.l+'</div><div class="english-word">'+w.e+'</div><div class="pronunciation">'+w.p+'</div><div class="card-actions"><button class="audio-btn" onclick="speak(\''+sw+'\')">▶ Listen</button><button class="learn-btn'+(isl?' done':'')+'" onclick="toggleLearned(\''+sc+'\',\''+sw+'\',this)">'+(isl?'✓':'Learn')+'</button></div></div>';
+    h+='<div class="word-card'+(isl?' learned':'')+'"><div class="pictogram">'+w.ic+'</div><div class="luganda-word">'+w.l+'</div><div class="english-word">'+w.e+'</div><div class="pronunciation">'+w.p+'</div><div class="card-actions"><button class="audio-btn" onclick="speak(\''+sw+'\')">&#9654; Listen</button><button class="learn-btn'+(isl?' done':'')+'" onclick="toggleLearned(\''+sc+'\',\''+sw+'\',this)">'+(isl?'&#10003;':'Learn')+'</button></div></div>';
   });
   return h+'</div>';
 }
-function toggleLearned(cat,word,btn){var k=cat+':'+word;if(learnedWords.has(k)){learnedWords.delete(k);btn.innerHTML='Learn';btn.classList.remove('done');btn.closest('.word-card').classList.remove('learned');}else{learnedWords.add(k);btn.innerHTML='✓';btn.classList.add('done');btn.closest('.word-card').classList.add('learned');}save();buildSidebar();}
+function toggleLearned(cat,word,btn){var k=cat+':'+word;if(learnedWords.has(k)){learnedWords.delete(k);btn.innerHTML='Learn';btn.classList.remove('done');btn.closest('.word-card').classList.remove('learned');}else{learnedWords.add(k);btn.innerHTML='&#10003;';btn.classList.add('done');btn.closest('.word-card').classList.add('learned');}save();buildSidebar();}
 
-// QUIZ
-function initQuiz(){var ws=VOCAB[currentCat]||[];quizState={words:ws.slice().sort(function(){return Math.random()-0.5;}),idx:0,score:0,answered:false};}
+function initQuiz(){var ws=VOCAB[currentCat]||[];quizState={words:ws.slice().sort(function(){return Math.random()-.5;}),idx:0,score:0,answered:false};}
 function renderQuiz(words){
   if(!quizState.words||!quizState.words.length)initQuiz();
   if(quizState.idx>=quizState.words.length)return renderComplete('Quiz',quizState.score,quizState.words.length,'initQuiz();render()');
-  var w=quizState.words[quizState.idx],d=words.filter(function(x){return x.e!==w.e;}).sort(function(){return Math.random()-0.5;}).slice(0,3),opts=d.concat([w]).sort(function(){return Math.random()-0.5;}),pp=Math.round(quizState.idx/quizState.words.length*100),sw=w.l.replace(/'/g,"\\'");
+  var w=quizState.words[quizState.idx],d=words.filter(function(x){return x.e!==w.e;}).sort(function(){return Math.random()-.5;}).slice(0,3),opts=d.concat([w]).sort(function(){return Math.random()-.5;}),pp=Math.round(quizState.idx/quizState.words.length*100),sw=w.l.replace(/'/g,"\\'");
   var oh=opts.map(function(o){var se=o.e.replace(/'/g,"\\'");return'<button class="quiz-opt" onclick="answerQuiz(\''+se+'\')">'+o.e+'</button>';}).join('');
-  return'<div class="quiz-wrap"><div class="quiz-score-bar"><span>Q '+(quizState.idx+1)+'/'+quizState.words.length+'</span><span>Score: '+quizState.score+'</span></div><div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:'+pp+'%"></div></div><div class="quiz-card"><div class="quiz-pictogram">'+w.ic+'</div><div class="quiz-label">What does this mean in English?</div><div class="quiz-word">'+w.l+'</div><div class="quiz-pron">'+w.p+'</div><button class="quiz-audio-btn" onclick="speak(\''+sw+'\')">▶ Hear it</button><div class="quiz-options">'+oh+'</div><button class="quiz-next" id="qnext" onclick="nextQuiz()">Next →</button></div></div>';
+  return'<div class="quiz-wrap"><div class="quiz-score-bar"><span>Q '+(quizState.idx+1)+'/'+quizState.words.length+'</span><span>Score: '+quizState.score+'</span></div><div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:'+pp+'%"></div></div><div class="quiz-card"><div class="quiz-pictogram">'+w.ic+'</div><div class="quiz-label">What does this mean in English?</div><div class="quiz-word">'+w.l+'</div><div class="quiz-pron">'+w.p+'</div><button class="quiz-audio-btn" onclick="speak(\''+sw+'\')">&#9654; Hear it</button><div class="quiz-options">'+oh+'</div><button class="quiz-next" id="qnext" onclick="nextQuiz()">Next &#8594;</button></div></div>';
 }
 function answerQuiz(chosen){if(quizState.answered)return;quizState.answered=true;var w=quizState.words[quizState.idx],correct=w.e;document.querySelectorAll('.quiz-opt').forEach(function(b){b.disabled=true;if(b.textContent===correct)b.classList.add('correct');else if(b.textContent===chosen&&chosen!==correct)b.classList.add('wrong');});if(chosen===correct){quizState.score++;learnedWords.add(currentCat+':'+w.l);save();buildSidebar();}document.getElementById('qnext').style.display='inline-block';}
 function nextQuiz(){quizState.idx++;quizState.answered=false;render();}
 
-// MATCHING PAIRS
 function initPairs(){
   var words=VOCAB[currentCat]||[];
-  var sample=words.slice().sort(function(){return Math.random()-0.5;}).slice(0,8);
-  var lugCards=sample.map(function(w,i){return{id:'l'+i,text:w.ic+' '+w.l,match:'e'+i,type:'lug',matched:false};});
-  var engCards=sample.map(function(w,i){return{id:'e'+i,text:w.e,match:'l'+i,type:'eng',matched:false};});
-  var shuffledEng=engCards.slice().sort(function(){return Math.random()-0.5;});
-  pairsState={lug:lugCards,eng:shuffledEng,selected:null,score:0,total:sample.length,wrongFlash:null};
+  var sample=words.slice().sort(function(){return Math.random()-.5;}).slice(0,8);
+  var lug=sample.map(function(w,i){return{id:'l'+i,text:w.ic+' '+w.l,match:'e'+i,type:'lug',matched:false};});
+  var eng=sample.map(function(w,i){return{id:'e'+i,text:w.e,match:'l'+i,type:'eng',matched:false};});
+  pairsState={lug:lug,eng:eng.slice().sort(function(){return Math.random()-.5;}),selected:null,score:0,total:sample.length,wrongFlash:null};
 }
 function renderPairs(words){
   if(!pairsState.lug)initPairs();
@@ -780,67 +365,46 @@ function selectPair(id){
   if(!ps.selected){ps.selected=card;render();return;}
   if(ps.selected.id===id){ps.selected=null;render();return;}
   var a=ps.selected,b=card;
-  if(a.match===b.id){
-    a.matched=true;b.matched=true;ps.score++;ps.selected=null;
-    learnedWords.add(currentCat+':'+a.text.replace(/^[^\s]+ /,''));save();buildSidebar();
-    render();
-  } else {
-    ps.wrongFlash=a.id;var wfb=b.id;ps.selected=null;render();
-    setTimeout(function(){pairsState.wrongFlash=null;render();},400);
-  }
+  if(a.match===b.id){a.matched=true;b.matched=true;ps.score++;ps.selected=null;save();buildSidebar();render();}
+  else{ps.wrongFlash=a.id;ps.selected=null;render();setTimeout(function(){pairsState.wrongFlash=null;render();},400);}
 }
 
-// FILL IN THE BLANK
-function initFill(){
-  var sentences=FILL_SENTENCES[currentCat]||[];
-  var shuffled=sentences.slice().sort(function(){return Math.random()-0.5;});
-  fillState={sentences:shuffled,idx:0,score:0,answered:false};
-}
+function initFill(){var s=FILL[currentCat]||[];fillState={sentences:s.slice().sort(function(){return Math.random()-.5;}),idx:0,score:0,answered:false};}
 function renderFill(words){
   if(!fillState.sentences||!fillState.sentences.length)initFill();
   var fs=fillState;
   if(fs.idx>=fs.sentences.length)return renderComplete('Fill in the Blank',fs.score,fs.sentences.length,'initFill();render()');
   var s=fs.sentences[fs.idx],allWords=VOCAB[currentCat]||[];
-  var distractors=allWords.filter(function(w){return w.l!==s.target;}).sort(function(){return Math.random()-0.5;}).slice(0,3).map(function(w){return w.l;});
-  var opts=distractors.concat([s.target]).sort(function(){return Math.random()-0.5;});
+  var d=allWords.filter(function(w){return w.l!==s.target;}).sort(function(){return Math.random()-.5;}).slice(0,3).map(function(w){return w.l;});
+  var opts=d.concat([s.target]).sort(function(){return Math.random()-.5;});
   var pp=Math.round(fs.idx/fs.sentences.length*100);
   var oh=opts.map(function(o){var so=o.replace(/'/g,"\\'");return'<button class="fill-opt" onclick="answerFill(\''+so+'\')">'+o+'</button>';}).join('');
-  return'<div class="fill-wrap"><div class="quiz-score-bar"><span>Q '+(fs.idx+1)+'/'+fs.sentences.length+'</span><span>Score: '+fs.score+'</span></div><div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:'+pp+'%"></div></div><div class="fill-card"><div class="fill-sentence">'+s.before+' <span class="fill-blank" id="fill-blank">___</span> '+s.after+'</div><div class="fill-hint">Hint: '+s.hint+'</div><div class="fill-options">'+oh+'</div><button class="quiz-next" id="fnext" onclick="nextFill()">Next →</button></div></div>';
+  return'<div class="fill-wrap"><div class="quiz-score-bar"><span>Q '+(fs.idx+1)+'/'+fs.sentences.length+'</span><span>Score: '+fs.score+'</span></div><div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:'+pp+'%"></div></div><div class="fill-card"><div class="fill-sentence">'+s.before+' <span class="fill-blank" id="fill-blank">___</span> '+s.after+'</div><div class="fill-hint">Hint: '+s.hint+'</div><div class="fill-options">'+oh+'</div><button class="quiz-next" id="fnext" onclick="nextFill()">Next &#8594;</button></div></div>';
 }
 function answerFill(chosen){if(fillState.answered)return;fillState.answered=true;var s=fillState.sentences[fillState.idx];var blank=document.getElementById('fill-blank');if(blank)blank.textContent=chosen;document.querySelectorAll('.fill-opt').forEach(function(b){b.disabled=true;if(b.textContent===s.target)b.classList.add('correct');else if(b.textContent===chosen&&chosen!==s.target)b.classList.add('wrong');});if(chosen===s.target){fillState.score++;learnedWords.add(currentCat+':'+s.target);save();buildSidebar();}document.getElementById('fnext').style.display='inline-block';}
 function nextFill(){fillState.idx++;fillState.answered=false;render();}
 
-// STORY MODE
 function renderStory(){
   if(!storyState.cat){
-    // Show story picker — all categories
     var h='<div class="story-picker">';
-    CATS.forEach(function(c){
-      var s=STORIES[c.id];
-      if(!s)return;
-      h+='<div class="story-card" onclick="openStory(\''+c.id+'\')"><div class="s-emoji">'+s.emoji+'</div><div class="s-title">'+s.title+'</div><div class="s-desc">'+c.label+'</div></div>';
-    });
+    CATS.forEach(function(c){var s=STORIES[c.id];if(!s)return;h+='<div class="story-card" onclick="openStory(\''+c.id+'\')"><div class="s-emoji">'+s.emoji+'</div><div class="s-title">'+s.title+'</div><div class="s-desc">'+c.label+'</div></div>';});
     return h+'</div>';
   }
   var s=STORIES[storyState.cat];
-  if(!s)return'<div class="empty">No story yet for this category.</div>';
-  // Parse story text: replace <w l="..." e="...">word</w> with interactive spans
+  if(!s)return'<div class="empty">No story for this category yet.</div>';
   var storyHtml=s.text.replace(/<w l="([^"]+)" e="([^"]+)">([^<]+)<\/w>/g,function(match,l,e,display){
     var sl=l.replace(/'/g,"\\'"),se=e.replace(/'/g,"\\'");
     return'<span class="story-word" onclick="revealWord(this,\''+sl+'\',\''+se+'\')">'+display+'<span class="word-tooltip">'+e+'</span></span>';
   });
-  // Extract glossary
-  var glossary=[];var re=/<w l="([^"]+)" e="([^"]+)">/g,m;while((m=re.exec(s.text))!==null){var exists=glossary.find(function(g){return g.l===m[1];});if(!exists)glossary.push({l:m[1],e:m[2]});}
+  var glossary=[];var re=/<w l="([^"]+)" e="([^"]+)">/g,m;while((m=re.exec(s.text))!==null){if(!glossary.find(function(g){return g.l===m[1];}))glossary.push({l:m[1],e:m[2]});}
   var gh=glossary.map(function(g){return'<div class="glossary-item"><div class="g-lug">'+g.l+'</div><div class="g-eng">'+g.e+'</div></div>';}).join('');
-  return'<div class="story-wrap"><div class="story-reader"><div class="story-header"><div class="story-title">'+s.emoji+' '+s.title+'</div><button class="back-btn" onclick="storyState.cat=null;render()">← All stories</button></div><div class="story-text">'+storyHtml+'</div><div class="story-legend">💡 <strong>Tap the highlighted words</strong> to reveal their English meaning. Words you explore count as learned!</div><div class="story-glossary">'+gh+'</div></div></div>';
+  return'<div class="story-wrap"><div class="story-reader"><div class="story-header"><div class="story-title">'+s.emoji+' '+s.title+'</div><button class="back-btn" onclick="storyState.cat=null;render()">&#8592; All stories</button></div><div class="story-text">'+storyHtml+'</div><div class="story-legend">&#128161; <strong>Tap the highlighted words</strong> to reveal their meaning. Words you reveal are marked as learned!</div><div class="story-glossary">'+gh+'</div></div></div>';
 }
 function openStory(catId){storyState.cat=catId;render();}
 function revealWord(el,l,e){el.classList.toggle('revealed');learnedWords.add(currentCat+':'+l);save();buildSidebar();}
 
-// COMPLETE SCREEN
 function renderComplete(game,score,total,restart){
-  var pct=Math.round(score/total*100);
-  var emoji=pct>=80?'🏆':pct>=50?'🌟':'💪';
+  var pct=Math.round(score/total*100),emoji=pct>=80?'&#127942;':pct>=50?'&#127775;':'&#128170;';
   return'<div class="quiz-wrap"><div class="quiz-complete"><div class="big-emoji">'+emoji+'</div><h2>'+game+' complete!</h2><p>You scored <strong>'+score+' / '+total+'</strong> ('+pct+'%)</p><button class="btn-green" onclick="'+restart+'">Play again</button></div></div>';
 }
 
